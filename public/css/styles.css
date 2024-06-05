@@ -15,11 +15,35 @@ header{
 }
 .main{
     padding-top: 100px;
+    margin: 0 auto;
+    
+    width: 100%;
+    
 }
 
 .main *{
     max-width: 100%;
 }
+
+
+.cont{
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 2px 3px rgba(0,0,0,.2);
+}
+
+
+.form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 
 
 /**
@@ -57,6 +81,61 @@ h1,h2,h3,h4,h5,h6,p,a{
     font-weight: 700;
 }
 
+/**
+* Default List styles
+*/
+
+/**
+* Default List styles for Desktop
+*/
+
+.ul__li--animated:nth-child(1) .li__a--animated {
+    animation: fadeIn 0.5s ease forwards 0.3s;
+}
+
+.ul__li--animated:nth-child(2) .li__a--animated {
+    animation: fadeIn 0.5s ease forwards 0.4s;
+}
+
+.ul__li--animated:nth-child(3) .li__a--animated {
+    animation: fadeIn 0.5s ease forwards 0.5s;
+}
+
+.ul__li--animated:nth-child(4) .li__a--animated {
+    animation: fadeIn 0.5s ease forwards 0.6s;
+}
+
+.ul__li--animated:nth-child(5) .li__a--animated {
+    animation: fadeIn 0.5s ease forwards 0.7s;
+}
+
+.ul__li--animated:nth-child(6) .li__a--animated {
+    animation: fadeIn 0.5s ease forwards 0.8s;
+}
+
+.li__a--animated {
+    color: #333; /* Dark text color */
+    text-decoration: none;
+    font-size: 1.2rem;
+    display: block;
+    padding: 10px;
+    transition: color 0.3s ease;
+    opacity: 0; /* Start with opacity 0 */
+}
+
+.li__a--animated:hover {
+    color: #59C033; /* Green color on hover */
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
 
 
 
@@ -81,6 +160,47 @@ h1,h2,h3,h4,h5,h6,p,a{
     width: 100%;
     padding: 0 10px 0 10px;
 }
+
+@media screen and (min-width: 720px) {
+    
+}
+
+/**
+* Desktop menu
+*/
+
+.desktop-navigation{
+    display: none;   
+   }
+   
+   @media only screen and (min-width: 720px){
+       .desktop-navigation{
+           display: block;
+
+       }
+   
+       .desktop-navigation ul{
+            list-style-type: none; /* Remove bullet points */
+            padding: 0;
+            margin: 0;
+            display: flex; /* Enable flexbox layout */
+           
+       }
+
+       .desktop-navigation ul li{
+            margin-right: 10px; /* Adjust spacing between items */
+        }
+
+        .desktop-navigation ul li a{
+            text-decoration: none; /* Remove underline from links */
+            color: #000; /* Set text color */
+            white-space: nowrap; /* Prevent text from wrapping to the next line */
+            overflow: hidden; /* Hide overflowed text */
+            text-overflow: ellipsis; /* Display ellipsis (...) for overflowed text */
+            display: inline-block;
+        }
+   }
+   
 
 /**
 *   Icon styles
@@ -250,6 +370,20 @@ h1,h2,h3,h4,h5,h6,p,a{
     
     height: 40px;
     width: 40px;
+}
+
+@media screen and (min-width: 720px) {
+    .mobile_menu{
+        display: none;
+    }
+
+    .hamburger{
+        display: none;
+    }
+
+    .fade_screen, .fade_visible, .fade_hidden{
+        display: none !important;
+    }
 }
 
 
@@ -682,53 +816,49 @@ body, html {
 
 .ul__li--mobile {
     margin-bottom: 20px;
-    opacity: 0;
+    opacity: 0 ;
 }
 
-.ul__li--mobile:nth-child(1) {
-    animation: fadeIn 0.5s ease forwards 0.3s;
+/**
+* Default List styles
+*/
+
+.ul__li--animated-mobile:nth-child(1) .li__a--animated-mobile {
+    animation: fadeIn 1s ease forwards 0.3s;
 }
 
-.ul__li--mobile:nth-child(2) {
-    animation: fadeIn 0.5s ease forwards 0.4s;
+.ul__li--animated-mobile:nth-child(2) .li__a--animated-mobile {
+    animation: fadeIn 1s ease forwards 0.4s;
 }
 
-.ul__li--mobile:nth-child(3) {
-    animation: fadeIn 0.5s ease forwards 0.5s;
+.ul__li--animated-mobile:nth-child(3) .li__a--animated-mobile {
+    animation: fadeIn 1s ease forwards 0.5s;
 }
 
-.ul__li--mobile:nth-child(4) {
-    animation: fadeIn 0.5s ease forwards 0.6s;
+.ul__li--animated-mobile:nth-child(4) .li__a--animated-mobile {
+    animation: fadeIn 1s ease forwards 0.6s;
 }
 
-.ul__li--mobile:nth-child(5) {
-    animation: fadeIn 0.5s ease forwards 0.7s;
+.ul__li--animated-mobile:nth-child(5) .li__a--animated-mobile {
+    animation: fadeIn 1s ease forwards 0.7s;
 }
 
-.ul__li--mobile:nth-child(6) {
-    animation: fadeIn 0.5s ease forwards 0.8s;
+.ul__li--animated-mobile:nth-child(6) .li__a--animated-mobile {
+    animation: fadeIn 1s ease forwards 0.8s;
 }
 
-.li__a--mobile {
+.li__a--animated-mobile {
     color: #333; /* Dark text color */
     text-decoration: none;
     font-size: 1.2rem;
     display: block;
     padding: 10px;
     transition: color 0.3s ease;
+    opacity: 0; /* Start with opacity 0 */
 }
 
-.li__a--mobile:hover {
+.li__a--animated-mobile:hover {
     color: #59C033; /* Green color on hover */
-}
-
-@keyframes slideIn {
-    0% {
-        transform: translateY(-100%);
-    }
-    100% {
-        transform: translateY(0);
-    }
 }
 
 @keyframes fadeIn {
@@ -739,3 +869,67 @@ body, html {
         opacity: 1;
     }
 }
+
+
+@keyframes slideIn {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+
+/**
+* Default List styles
+*/
+
+.ul__li--animated-mobile:nth-child(1) .li__a--animated-mobile {
+    animation: fadeIn 1s ease forwards 0.3s;
+}
+
+.ul__li--animated-mobile:nth-child(2) .li__a--animated-mobile {
+    animation: fadeIn 1s ease forwards 0.4s;
+}
+
+.ul__li--animated-mobile:nth-child(3) .li__a--animated-mobile {
+    animation: fadeIn 1s ease forwards 0.5s;
+}
+
+.ul__li--animated-mobile:nth-child(4) .li__a--animated-mobile {
+    animation: fadeIn 1s ease forwards 0.6s;
+}
+
+.ul__li--animated-mobile:nth-child(5) .li__a--animated-mobile {
+    animation: fadeIn 1s ease forwards 0.7s;
+}
+
+.ul__li--animated-mobile:nth-child(6) .li__a--animated-mobile {
+    animation: fadeIn 1s ease forwards 0.8s;
+}
+
+.li__a--animated-mobile {
+    color: #333; /* Dark text color */
+    text-decoration: none;
+    font-size: 1.2rem;
+    display: block;
+    padding: 10px;
+    transition: color 0.3s ease;
+    opacity: 0; /* Start with opacity 0 */
+}
+
+.li__a--animated-mobile:hover {
+    color: #59C033; /* Green color on hover */
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+
