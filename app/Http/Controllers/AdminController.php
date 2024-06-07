@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use App\Models\Invoice;
 use App\Models\Service;
-use Spatie\Browsershot\Browsershot;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class AdminController extends Controller
 {
@@ -111,13 +111,13 @@ class AdminController extends Controller
             $invoice->net_price += $new_service_object->total;
 
             
-            if($service['non_taxable'] == 0){
+            if(!isset($service['non_taxable']) || $service['non_taxable'] == 0){
                 $invoice->total_price += $new_service_object->total;
             }else{
                 $invoice->total_price += $new_service_object->total + $new_service_object->total * ($invoice->tax / 100);
             }
 
-
+            
             $invoice->save();
             
         }
@@ -125,19 +125,13 @@ class AdminController extends Controller
 
         $invoice->save();
 
-        $pdfContent = view('pdf/invoice', [
+        $pdfContent = Pdf::loadView('pdf/invoice', [
             "invoice" => $invoice,
             "services" => $services
-        ])->render();
+        ]);
 
-        $pdf = Browsershot::html($pdfContent)
-        ->setNodeBinary("C:\\Program Files\\nodejs\\node.exe")
-        ->timeout(60000) // Increase timeout to 60 seconds
-        ->setOption('newHeadless', true)
-        ->format('A4')
-        ->pdf();
-
-        return $pdf;
+        // dd($pdfContent);
+        return $pdfContent->download();
 
      }
 }
