@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Services\InvoiceAuthenticator;
 
 /**
  * search for invoices
@@ -10,10 +11,19 @@ use Illuminate\Http\Request;
 class InvoiceController extends Controller
 {
     function find_invoice(Request $request){
-        $invoice_id = $request->input('invoice_id');
-        $security_key = $request->input('security_key');
+        $credentials = $request->validate([
+            'invoice_id' => ['required'],
+            'security_key' => ['required']
+        ]);
 
-        echo $invoice_id . "<br />";
-        echo $security_key . "<br  />";
+        if(InvoiceAuthenticator::authenticate($credentials)){
+            $request->session()->regenerate();
+
+            return redirect()->intended('admin-dashboard');
+        }
+
+        return back()->withErrors([
+            "invoice_id" => "The provided account details do not match our records."
+        ]);
     }
 }

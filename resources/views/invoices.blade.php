@@ -13,13 +13,16 @@
     
     <div class="cont">
         <h1>Admin Panel</h1>
-        <form class="form" action="/generate_invoices" method="POST">
+        <form class="form" action="/admin_panel/login" method="POST">
             @csrf <!-- Add CSRF token for form submission -->
-            <label for="account_id">Account ID</label>
-            <input type="text" name="account_id" placeholder="e.g C2203203232" />
-            <label for="security_key">Security Key</label>
-            <input type="password" name="security_key"  placeholder="********" />
+            <label for="email">Email Address</label>
+            <input type="email" name="email" placeholder="e.g sample@gmail.com" />
+            <label for="password">Security Key</label>
+            <input type="password" name="password"  placeholder="********" />
             <button type="submit">Go</button> <!-- Specify type="submit" for the button -->
         </form>
     </div>
+   
+        {{$errors}}
+   
 </x-layout>
