@@ -123,4 +123,9 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+
+    'aliases' => [
+        // Other aliases
+        'Pdf' => Spatie\Pdf\Facades\Pdf::class,
+    ],
 ];

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->double("rate");
             $table->double("total");
             $table->integer("quantity");
+            $table->boolean("non_taxable")->default(0);
             $table->timestamps();
         });
     }

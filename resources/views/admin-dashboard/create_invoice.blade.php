@@ -189,7 +189,7 @@
                 <input type="number" name="services[${serviceCount}][rate]" placeholder="Rate" step="0.01" required />
                 <input type="number" name="services[${serviceCount}][quantity]" placeholder="Quantity" required />
                 <label for="services[${serviceCount}][non_taxable]">Non-Taxable Item</label>
-                <input type="checkbox" id="services[${serviceCount}][non_taxable]" name="services[${serviceCount}][non_taxable]" value="0"/>
+                <input type="checkbox" id="services[${serviceCount}][non_taxable]" name="services[${serviceCount}][non_taxable]" value="1"/>
                 <button type="button" class="remove-service-btn" onclick="removeService(this)">Remove</button>
             `;
 

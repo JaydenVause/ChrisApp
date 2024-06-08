@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use App\Models\Invoice;
 use App\Models\Service;
-use Barryvdh\DomPDF\Facade\Pdf;
+use Spatie\Browsershot\Browsershot;
 
 class AdminController extends Controller
 {
@@ -95,7 +95,7 @@ class AdminController extends Controller
         $invoice->save();
         $services = [];
 
-
+        $total_tax = 0;
         foreach($validated['services'] as $service){
             $new_service_object = new Service;
             $new_service_object->description = $service['description'];
@@ -104,34 +104,64 @@ class AdminController extends Controller
             $new_service_object->quantity = $service['quantity'];
             $new_service_object->invoice_id = $invoice->id;
             $new_service_object->total = $service['rate'] * $service['quantity'] * $service['amount'];
+            if(isset($service['non_taxable'])){
+                $new_service_object->non_taxable = $service['non_taxable'];
+            }
+            
             $new_service_object->save();
             $services[] = $new_service_object;
             
-
+            
             $invoice->net_price += $new_service_object->total;
 
             
-            if(!isset($service['non_taxable']) || $service['non_taxable'] == 0){
+            if(!isset($service['non_taxable'])){
                 $invoice->total_price += $new_service_object->total;
             }else{
+                $total_tax += $new_service_object->total * ($invoice->tax / 100);
                 $invoice->total_price += $new_service_object->total + $new_service_object->total * ($invoice->tax / 100);
             }
 
+            
             
             $invoice->save();
             
         }
 
+        $invoice->total_tax = $total_tax;
+        
 
         $invoice->save();
 
-        $pdfContent = Pdf::loadView('pdf/invoice', [
-            "invoice" => $invoice,
-            "services" => $services
-        ]);
+         // Generate the PDF from the Blade view
+        //  $pdf = Pdf::view('pdf.invoice', [
+        //     'invoice' => $invoice,
+        //     'services' => $services
+        // ])->format('A4')->save('./pdf/01.pdf');
 
-        // dd($pdfContent);
-        return $pdfContent->download();
+        // return view('pdf.invoice', [
+        //     'invoice' => $invoice,
+        //     'services' => $services
+        // ]);
+
+        $view =  view('pdf.invoice', [
+            'invoice' => $invoice,
+            'services' => $services
+        ])->render();
+
+       
+        
+
+        $pdfContent = Browsershot::html($view)->noSandbox()
+            ->setNodeBinary("C:\\Program Files\\nodejs\\node.exe")
+            ->setChromePath("C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe")
+             // Increase timeout to 120 seconds
+            ->format('A4')
+            ->savePdf('./01.pdf');
+
+        // Return the PDF as a response
+        return $pdfContent;
+           
 
      }
 }

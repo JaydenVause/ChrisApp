@@ -42,6 +42,7 @@ return new class extends Migration
             $table->double("net_price");
             $table->double("total_price");
             $table->double("paid")->default(0);
+            $table->double("total_tax")->default(0);
         });
     }
 
