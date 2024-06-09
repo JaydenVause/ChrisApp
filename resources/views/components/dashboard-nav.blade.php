@@ -5,7 +5,7 @@
             <a href="/admin_panel">Dashboard</a>
         </li>
         <li>
-            <a href="/admin_panel/create_invoice">Generate Invoice</a>
+            <a href="/admin_panel/create_invoice" class="btn--green">Generate Invoice</a>
             <div>
                 <input type="text" name="search_term" placeholder="Search Term" />
                 <button>Search</button>

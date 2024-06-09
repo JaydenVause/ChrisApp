@@ -89,40 +89,81 @@
         <x-dashboard-nav />
         <div class="table-container">
             <table class="table">
+                
+                @foreach($invoices as $invoice)
                 <tr>
                     <td>
                         <p><strong>ID:</strong></p>
-                        <p>12345</p>
+                        <p>{{$invoice->id}}</p>
                     </td>
                     <td>
                         <p><strong>Name:</strong></p>
-                        <p>John Doe</p>
+                        <p>{{$invoice->customer_name}}</p>
                     </td>
                     <td>
                         <p><strong>Email:</strong></p>
-                        <p>sample@gmail.com</p>
+                        <p>{{$invoice->customer_email_address}}</p>
                     </td>
                     <td>
                         <p><strong>Date:</strong></p>
-                        <p>01/01/2024</p>
+                        <p class="date-object">{{$invoice->invoice_date}}</p>
+                    </td>
+                    <td>
+                        <p><strong>Due Date:</strong></p>
+                        <p class="date-object">{{$invoice->due_date}}</p>
                     </td>
                     <td>
                         <p><strong>Address:</strong></p>
-                        <p><address>21 Sample Street</address></p>
+                        <p><address>{{$invoice->customer_address}}</address></p>
                     </td>
                     <td>
                         <p><strong>Contact Number:</strong></p>
-                        <p>+61 412 323 323</p>
+                        <p>{{$invoice->customer_contact_number}}</p>
                     </td>
                     <td>
                         <p><strong>Actions:</strong></p>
                         <span>
+                            
+                        <a href="{{ url('/admin_panel/edit_invoice/' . $invoice->id) }}">
                             <button>Edit</button>
-                            <button>Delete</button>
+                        </a>
+
+                        <form action="{{ url('/admin_panel/delete_invoice/' . $invoice->id) }}" method="POST" style="display:inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit">Delete</button>
+                        </form>
+
+                        <a href="{{ url('/admin_panel/download_invoice/' . $invoice->id) }}">
+                            <button>Download</button>
+                        </a>
+
                         </span>
                     </td>
                 </tr>
+                @endforeach
             </table>
         </div>
     </div>
 </x-layout>
+<script>
+
+    function print_out_date_australia(string){
+        let new_string = string.split("-");
+        console.log(new_string);
+        new_string = new_string[2] + "/" + new_string[1] + "/" + new_string[0];
+        return new_string;
+    }
+
+    // date-object
+
+    document.addEventListener("DOMContentLoaded", ()=>{
+        let date_objects = document.querySelectorAll(".date-object");
+        // console.log(date_objects);
+        date_objects.forEach((date_object) => {
+            // console.log(date_object);
+            date_object.innerHTML = print_out_date_australia(date_object.innerHTML);
+        });
+    })
+
+</script>

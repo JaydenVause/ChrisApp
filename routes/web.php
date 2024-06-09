@@ -32,3 +32,10 @@ Route::post('/admin_panel/save_invoice', [AdminController::class, "save_invoice"
 Route::get('/pdf', function(){
     return view('pdf.invoice');
 });
+
+Route::get('/admin_panel/edit_invoice/{invoice_id}', [AdminController::class, "edit_invoice"])->name('admin-dashboard.edit_invoice')->middleware('web');
+Route::patch('/admin_panel/edit_invoice/{invoice_id}', [AdminController::class, "patch_invoice"])->name('admin-dashboard.patch_invoice')->middleware('web');
+
+Route::get('/admin_panel/download_invoice/{invoice_id}', [AdminController::class, "download_invoice"])->name('admin-dashboard.download_invoice')->middleware('web');
+
+Route::delete('/admin_panel/delete_invoice/{invoice_id}', [AdminController::class, "delete_invoice"])->name('admin-dashboard.delete_invoice')->middleware('web');

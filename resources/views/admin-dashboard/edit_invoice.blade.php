@@ -84,49 +84,60 @@
     </style>
 </head>
 <body>
-    <x-layout>
+<x-layout>
         <div class="admin-dashboard">
             <x-dashboard-nav />
             
-            <form action="/admin_panel/save_invoice" method="POST" class="invoice-form" id="invoiceForm">
+            <form action="{{ url('/admin_panel/edit_invoice/' . $invoice->id) }}" method="POST" class="invoice-form" id="invoiceForm">
                 @csrf
+                @method('PATCH')
 
                 <label for="customer_name">Customer Name:</label>
-                <input type="text" name="customer_name" placeholder="Client's Name" required />
+                <input type="text" name="customer_name" placeholder="Client's Name" value="{{ $invoice->customer_name }}" required />
 
                 <label for="customer_email_address">Customer Email:</label>
-                <input type="email" name="customer_email_address" placeholder="Client's Name" required />
+                <input type="email" name="customer_email_address" placeholder="Client's Email" value="{{ $invoice->customer_email_address }}" required />
 
                 <label for="customer_contact_number">Customer Contact Number:</label>
-                <input type="tel" name="customer_contact_number" placeholder="Client's Contact Number" required />
+                <input type="tel" name="customer_contact_number" placeholder="Client's Contact Number" value="{{ $invoice->customer_contact_number }}" required />
 
                 <label for="customer_address">Address:</label>
-                <input type="text" name="customer_address" placeholder="Customer's Address" />
+                <input type="text" name="customer_address" placeholder="Customer's Address" value="{{ $invoice->customer_address }}" />
 
                 <label for="invoice_date">Date:</label>
-                <input type="date" name="invoice_date" placeholder="Invoice Date" />
+                <input type="date" name="invoice_date" value="{{ $invoice->invoice_date }}" />
 
                 <label for="due_date">Due Date:</label>
-                <input type="date" name="due_date" placeholder="Due Date" />
+                <input type="date" name="due_date" value="{{ $invoice->due_date }}" />
 
                 <label for="tax">Tax %:</label>
-                <input type="number" placeholder="0%" step="0.1" name="tax" placeholder="Tax %" />        
-                
+                <input type="number" placeholder="0%" step="0.1" name="tax" value="{{ $invoice->tax }}" />
+
                 <label for="paid">$ Paid (Already):</label>
-                <input type="number" placeholder="0%" step="0.1" name="paid" placeholder="e.g. 100" />   
+                <input type="number" placeholder="0%" step="0.1" name="paid" value="{{ $invoice->paid }}" />
 
                 <div id="services">
-                    <!-- services go here -->
+                    @foreach($services as $index => $service)
+                        <div class="service-item">
+                            <input type="text" name="services[{{ $index }}][description]" placeholder="Description of service or product..." value="{{ $service->description }}" required />
+                            <input type="number" name="services[{{ $index }}][amount]" placeholder="Amount" step="0.01" value="{{ $service->amount }}" required />
+                            <input type="number" name="services[{{ $index }}][rate]" placeholder="Rate" step="0.01" value="{{ $service->rate }}" required />
+                            <input type="number" name="services[{{ $index }}][quantity]" placeholder="Quantity" value="{{ $service->quantity }}" required />
+                            <label for="services[{{ $index }}][non_taxable]">Non-Taxable Item</label>
+                            <input type="checkbox" id="services[{{ $index }}][non_taxable]" name="services[{{ $index }}][non_taxable]" value="1" {{ $service->non_taxable ? 'checked' : '' }}/>
+                            <button type="button" class="remove-service-btn" onclick="removeService(this)">Remove</button>
+                        </div>
+                    @endforeach
                 </div>
                 <button type="button" onclick="addService()">Add Service</button>
 
-                <button type="submit">Create Invoice</button>
+                <button type="submit">Save Invoice</button>
             </form>
         </div>
     </x-layout>
 
     <script>
-        let serviceCount = 1;
+        let serviceCount = document.querySelectorAll('.service-item').length + 1;
 
         function addService() {
             const servicesDiv = document.getElementById('services');

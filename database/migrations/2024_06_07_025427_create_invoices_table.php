@@ -35,8 +35,8 @@ return new class extends Migration
             $table->string("customer_address");
             $table->date("invoice_date");
             $table->date("due_date");
-            $table->string("terms");
-            $table->string("notes");
+            $table->string("terms")->nullable();
+            $table->string("notes")->nullable();
             $table->timestamps();
             $table->double("tax");
             $table->double("net_price");

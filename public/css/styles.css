@@ -597,6 +597,10 @@ body, html {
     max-width: 300px;
     text-align: center;
     margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 30px;
 }
 
 .services__item-title {
@@ -612,8 +616,9 @@ body, html {
     align-items: center;
 }
 .image__circle {
-    width: 200px;
-    height: 200px;
+    
+    width: 250px;
+    height: 250px;
     border-radius: 50%;
     position: relative; /* Needed for positioning pseudo-element */
     
@@ -625,13 +630,13 @@ body, html {
 .image__circle::before {
     content: ''; /* Required for pseudo-elements to display */
     position: absolute; /* Needed to position inside the parent */
-    top: 100px; /* Adjust as needed */
+    top: 125px; /* Adjust as needed */
     left: 0; /* Adjust as needed */
-    width: 100px;
-    height: 100px;
+    width: 125px;
+    height: 125px;
     border-radius: 0 0 0 50px;
      /* Position the background image */
-    background-size: 200px 200px; /* Match the size of the parent */
+    background-size: 250px 250px; /* Match the size of the parent */
     background-color: red;
     background-position: bottom left;
 }

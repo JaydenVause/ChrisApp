@@ -256,10 +256,9 @@ html {
                         <span>*</span>
                     @endif
                 </td>
-                <td><p>{{$service->rate}}</p></td>
+                <td><p>{{ sprintf('%0.2f', $service->rate) }}</p></td> <!-- Update this line -->
                 <td><p>{{$service->quantity}}</p></td>
-                <td><p>{{$service->total}}</p></td>
-                
+                <td><p>{{ sprintf('%0.2f', $service->total) }}</p></td> <!-- Update this line -->
             </tr>
         @endforeach
     </table>
@@ -304,29 +303,29 @@ html {
             <table>
             <tr>
                 <td><p>Sub Total: </p></td>
-                <td><p>${{$invoice->net_price}}</p></td>
+                <td><p>${{ sprintf('%0.2f', $invoice->net_price) }}</p></td> <!-- Update this line -->
             </tr>
             <tr>
                 <td><p>Tax: </p></td>
-                <td><p>{{$invoice->tax}} %</p></td>
+                <td><p>{{ sprintf('%0.2f', $invoice->tax) }} %</p></td> <!-- Update this line -->
             </tr>
             <tr>
                 <td><p>Tax Total : </p></td>
-                <td><p>${{$invoice->total_tax}}</p></td>
+                <td><p>${{ sprintf('%0.2f', $invoice->total_tax) }}</p></td> <!-- Update this line -->
             </tr>
-
             <tr>
                 <td><p>Paid: </p></td>
-                <td><p>${{$invoice->paid}}</p></td>
+                <td><p>${{ sprintf('%0.2f', $invoice->paid) }}</p></td> <!-- Update this line -->
             </tr>
+
             </table>
     </div>
     </div>
 
     <div class="total-cost">
-       <div class="total-cost__box">
-            Balance Due: ${{$invoice->total_price - $invoice->paid}}
-       </div>
+        <div class="total-cost__box">
+            Balance Due: ${{ sprintf('%0.2f', $invoice->total_price - $invoice->paid) }}
+        </div>
     </div>
 
     <div class="footer">
