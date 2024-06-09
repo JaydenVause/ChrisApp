@@ -66,7 +66,7 @@ class AdminController extends Controller
             "customer_email_address" => "required",
             "customer_contact_number" => "required", 
             "invoice_date" => "required",
-            "payment_terms" => "required",
+
             "due_date" => "required",
             "services" => "required",
             // "notes" => "required",

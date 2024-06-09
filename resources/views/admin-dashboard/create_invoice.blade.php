@@ -113,7 +113,7 @@
                 <input type="number" placeholder="0%" step="0.1" name="tax" placeholder="Tax %" />        
                 
                 <label for="paid">$ Paid (Already):</label>
-                <input type="number" placeholder="0%" step="0.1" name="paid" placeholder="e.g. 100" />   
+                <input type="number" placeholder="0%" step="0.1" name="paid" placeholder="e.g. 100" value="0" />   
 
                 <div id="services">
                     <!-- services go here -->
