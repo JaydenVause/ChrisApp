@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c7687797de42e5c3799afde5f35c7097",
+    "content-hash": "ce3bfd3e91979e583a8f2d15270fbe84",
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -211,6 +211,123 @@
                 }
             ],
             "time": "2024-02-09T16:56:22+00:00"
+        },
+        {
+            "name": "clicksend/clicksend-php",
+            "version": "v5.0.79",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ClickSend/clicksend-php.git",
+                "reference": "1a5ee58a36cd260cdbce8f270680f02de2593c0d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ClickSend/clicksend-php/zipball/1a5ee58a36cd260cdbce8f270680f02de2593c0d",
+                "reference": "1a5ee58a36cd260cdbce8f270680f02de2593c0d",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "guzzlehttp/guzzle": "^6.2|^7.3",
+                "php": ">=5.5"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "~2.12",
+                "phpunit/phpunit": "^4.8",
+                "squizlabs/php_codesniffer": "~2.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ClickSend\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "proprietary"
+            ],
+            "authors": [
+                {
+                    "name": "Swagger and contributors",
+                    "homepage": "https://github.com/swagger-api/swagger-codegen"
+                }
+            ],
+            "homepage": "http://swagger.io",
+            "keywords": [
+                "api",
+                "php",
+                "sdk",
+                "swagger"
+            ],
+            "support": {
+                "issues": "https://github.com/ClickSend/clicksend-php/issues",
+                "source": "https://github.com/ClickSend/clicksend-php/tree/v5.0.79"
+            },
+            "time": "2023-12-05T23:56:23+00:00"
+        },
+        {
+            "name": "codemonkey76/laravel-clicksend",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/codemonkey76/laravel-clicksend.git",
+                "reference": "7a0813485eb362175b3355c59a03bbcc88ba5d44"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/codemonkey76/laravel-clicksend/zipball/7a0813485eb362175b3355c59a03bbcc88ba5d44",
+                "reference": "7a0813485eb362175b3355c59a03bbcc88ba5d44",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^7",
+                "illuminate/support": "^8.0|^9.0|^10.0|^11.0",
+                "php": "^8"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.0|^7.0|^8.0|^9.0",
+                "phpunit/phpunit": "^9.0|^10.0|^11.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Codemonkey76\\ClickSend\\ClickSendServiceProvider"
+                    ],
+                    "aliases": {
+                        "ClickSend": "Codemonkey76\\ClickSend\\ClickSendFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Codemonkey76\\ClickSend\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Shane Poppleton",
+                    "email": "shane@alphasg.com.au",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel wrapper for ClickSend Rest API",
+            "homepage": "https://github.com/codemonkey76/laravel-clicksend",
+            "keywords": [
+                "codemonkey76",
+                "laravel-clicksend"
+            ],
+            "support": {
+                "issues": "https://github.com/codemonkey76/laravel-clicksend/issues",
+                "source": "https://github.com/codemonkey76/laravel-clicksend/tree/v1.0.1"
+            },
+            "time": "2024-03-18T02:52:31+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
@@ -516,6 +633,55 @@
                 "source": "https://github.com/dompdf/dompdf/tree/v2.0.8"
             },
             "time": "2024-04-29T13:06:17+00:00"
+        },
+        {
+            "name": "dotunj/laratwilio",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Dotunj/laratwilio.git",
+                "reference": "788e374f99da987516f73fae0a50389ff6d0eed2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Dotunj/laratwilio/zipball/788e374f99da987516f73fae0a50389ff6d0eed2",
+                "reference": "788e374f99da987516f73fae0a50389ff6d0eed2",
+                "shasum": ""
+            },
+            "require": {
+                "twilio/sdk": "^5.42"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^4.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Dotunj\\LaraTwilio\\LaraTwilioServiceProvider"
+                    ],
+                    "aliases": {
+                        "LaraTwilio": "Dotunj\\LaraTwilio\\Facades\\LaraTwilio"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dotunj\\LaraTwilio\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Dotun",
+                    "email": "dotunjolaosho@gmail.com"
+                }
+            ],
+            "support": {
+                "issues": "https://github.com/Dotunj/laratwilio/issues",
+                "source": "https://github.com/Dotunj/laratwilio/tree/master"
+            },
+            "time": "2020-02-03T01:10:59+00:00"
         },
         {
             "name": "dragonmantank/cron-expression",
@@ -6094,6 +6260,60 @@
                 "source": "https://github.com/tijsverkoyen/CssToInlineStyles/tree/v2.2.7"
             },
             "time": "2023-12-08T13:03:43+00:00"
+        },
+        {
+            "name": "twilio/sdk",
+            "version": "5.42.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twilio/twilio-php.git",
+                "reference": "0cfcb871b18a9c427dd9e8f0ed7458d43009b48a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twilio/twilio-php/zipball/0cfcb871b18a9c427dd9e8f0ed7458d43009b48a",
+                "reference": "0cfcb871b18a9c427dd9e8f0ed7458d43009b48a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.0"
+            },
+            "require-dev": {
+                "apigen/apigen": "^4.1",
+                "guzzlehttp/guzzle": "^6.3",
+                "phpunit/phpunit": ">=4.5"
+            },
+            "suggest": {
+                "guzzlehttp/guzzle": "An HTTP client to execute the API requests"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Twilio\\": "src/Twilio/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Twilio API Team",
+                    "email": "api@twilio.com"
+                }
+            ],
+            "description": "A PHP wrapper for Twilio's API",
+            "homepage": "http://github.com/twilio/twilio-php",
+            "keywords": [
+                "api",
+                "sms",
+                "twilio"
+            ],
+            "support": {
+                "issues": "https://github.com/twilio/twilio-php/issues",
+                "source": "https://github.com/twilio/twilio-php/tree/5.42.2"
+            },
+            "time": "2020-02-05T19:55:13+00:00"
         },
         {
             "name": "vlucas/phpdotenv",

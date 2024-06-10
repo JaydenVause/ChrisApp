@@ -11,6 +11,13 @@ use App\Models\Service;
 use Spatie\Browsershot\Browsershot;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
+use ClickSend;
+use ClickSend\Api\SMSApi;
+use ClickSend\Model\SmsMessage;
+use ClickSend\Model\SmsMessageCollection;
+use GuzzleHttp\Client; 
+use Illuminate\Support\Facades\Route;
+use Symfony\Component\Process\Process;
 class AdminController extends Controller
 {
     /**
@@ -40,6 +47,28 @@ class AdminController extends Controller
         ]);
     }
 
+    function getChromePath() {
+        // Execute the command to find the Chrome executable path
+        $process = new Process(['which', 'google-chrome']);
+        $process->run();
+    
+        // Get the output of the command
+        $chromePath = trim($process->getOutput());
+    
+        return $chromePath;
+    }
+    
+    function getNodePath() {
+        // Execute the command to find the Node.js executable path
+        $process = new Process(['which', 'node']);
+        $process->run();
+    
+        // Get the output of the command
+        $nodePath = trim($process->getOutput());
+    
+        return $nodePath;
+    }
+
     /**
      * Index method for Admin
      */
@@ -48,6 +77,21 @@ class AdminController extends Controller
         return view("admin-dashboard", [
             'invoices' => $invoices
         ]);
+    }
+
+    function formatAustralianPhoneNumber($phoneNumber) {
+        // Remove any non-numeric characters from the phone number
+        $phoneNumber = preg_replace('/\D/', '', $phoneNumber);
+    
+        // Check if the phone number starts with '0' and has 10 digits
+        if (preg_match('/^0[0-9]{9}$/', $phoneNumber)) {
+            // Replace the leading '0' with '+61'
+            $formattedNumber = '+61' . substr($phoneNumber, 1);
+            return $formattedNumber;
+        } else {
+            // Return the original number if it does not match the expected pattern
+            return $phoneNumber;
+        }
     }
 
 
@@ -89,7 +133,7 @@ class AdminController extends Controller
         $invoice->customer_name = $validated['customer_name'];
         $invoice->customer_email_address = $validated['customer_email_address'];
         $invoice->customer_address = $validated['customer_address'];
-        $invoice->customer_contact_number = $validated['customer_contact_number'];
+        $invoice->customer_contact_number = $this->formatAustralianPhoneNumber($validated['customer_contact_number']);
         $invoice->invoice_date = $validated['invoice_date'];
         $invoice->due_date = $validated['due_date'];
         // $invoice->notes = $validated['notes'];
@@ -138,34 +182,25 @@ class AdminController extends Controller
 
         $invoice->save();
 
-         // Generate the PDF from the Blade view
-        //  $pdf = Pdf::view('pdf.invoice', [
-        //     'invoice' => $invoice,
-        //     'services' => $services
-        // ])->format('A4')->save('./pdf/01.pdf');
-
-        // return view('pdf.invoice', [
-        //     'invoice' => $invoice,
-        //     'services' => $services
-        // ]);
-
         $view =  view('pdf.invoice', [
             'invoice' => $invoice,
             'services' => $services
         ])->render();
 
        
-        
+        $action = action([AdminController::class, 'save_invoice'], ['invoice_id' => $invoice->id]);
+        $routeName ="admin-dashboard.patch_invoice";
+
+        $url = route($routeName, ['invoice_id' => $invoice->id]);
 
         $pdfContent = Browsershot::html($view)->noSandbox()
-            ->setNodeBinary("C:\\Program Files\\nodejs\\node.exe")
-            ->setChromePath("C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe")
-             // Increase timeout to 120 seconds
+            ->setNodeBinary($this->getNodePath())
+            ->setChromePath($this->getChromePath())
             ->format('A4')
             ->savePdf('../pdf/'.$invoice->id.'.pdf');
 
-        Mail::send('emails.invoice', ['invoice' => $invoice], function($message) use ($invoice) {
-            $message->to('jaydenvausemailbox@gmail.com', 'Jayden Vause')
+        Mail::send('emails.invoice', ['invoice' => $invoice, 'url' => $url], function($message) use ($invoice) {
+            $message->to($invoice->customer_email_address, $invoice->customer_name)
                     ->subject('Your Invoice');
             $message->attach('../pdf/'.$invoice->id.'.pdf', [
                 'as' => 'invoice.pdf',
@@ -173,9 +208,49 @@ class AdminController extends Controller
             ]);
         });
 
-        return redirect()->route('admin-dashboard')->with('success', 'Successfully generated invoice');
-           
+        
 
+        $message = "Hi $invoice->customer_name,
+        
+        Thank you for choosing Coffs Lawns and Property Maintenance! We've sent your invoice to $invoice->customer_email_address. The total cost is $$invoice->total_price.
+
+        Alternatively you can download your invoice by visiting: $url
+        
+        For payment, please use:
+        - Account Name: Chris Webb
+        - BSB: 533000
+        - Account Number: 151548
+        - Bank: BCU
+
+        We appreciate your business!
+
+        Best regards,
+        Chris";
+
+        $username = env('CLICKSEND_USERNAME');
+        $password = env('CLICKSEND_PASSWORD');
+
+        $config = ClickSend\Configuration::getDefaultConfiguration()
+              ->setUsername($username)
+              ->setPassword($password);
+
+        $apiInstance = new ClickSend\Api\SMSApi(new Client(),$config);
+        $msg = new \ClickSend\Model\SmsMessage();
+        $msg->setBody($message); 
+        $msg->setTo($invoice->customer_contact_number);
+        $msg->setSource("sdk");
+
+        // \ClickSend\Model\SmsMessageCollection | SmsMessageCollection model
+        $sms_messages = new \ClickSend\Model\SmsMessageCollection(); 
+        $sms_messages->setMessages([$msg]);
+
+        try {
+            $result = $apiInstance->smsSendPost($sms_messages);
+            return redirect()->route('admin-dashboard')->with('success', 'Successfully generated invoice');
+        } catch (Exception $e) {
+            
+            return redirect()->back()->with('errors', 'Exception when calling SMSApi->smsSendPost: ' . $e->getMessage());
+        }
      }
 
 
@@ -287,6 +362,13 @@ class AdminController extends Controller
             'invoice' => $invoice,
             'services' => $services
         ])->render();
+
+        $action = action([AdminController::class, 'patch_invoice'], ['invoice_id' => $invoice->id]);
+
+        $routeName = "admin-dashboard.save_invoice";
+        
+
+        $url = route($routeName, ['invoice_id' => $invoice->id]);
     
         $pdfContent = Browsershot::html($view)->noSandbox()
             ->setNodeBinary("C:\\Program Files\\nodejs\\node.exe")
@@ -294,17 +376,57 @@ class AdminController extends Controller
             ->format('A4')
             ->savePdf('../pdf/'.$invoice->id.'.pdf');
 
-        Mail::send('emails.invoice', ['invoice' => $invoice], function($message) use ($invoice) {
-            $message->to('jaydenvausemailbox@gmail.com', 'Jayden Vause')
+        Mail::send('emails.invoice', ['invoice' => $invoice, 'url' => $url], function($message) use ($invoice) {
+            $message->to($invoice->customer_email_address, $invoice->customer_name)
                     ->subject('Your Invoice');
             $message->attach('../pdf/'.$invoice->id.'.pdf', [
                 'as' => 'invoice.pdf',
                 'mime' => 'application/pdf',
             ]);
         });
-    
-    
-        return redirect()->route('admin-dashboard')->with('success', 'Successfully updated invoice');
+        
+
+        $message = "Hi $invoice->customer_name,
+        
+        Thank you for choosing Coffs Lawns and Property Maintenance! We've sent your invoice to $invoice->customer_email_address. The total cost is $$invoice->total_price.
+
+        Alternatively you can download your invoice by visiting: $url
+        
+        For payment, please use:
+        - Account Name: Chris Webb
+        - BSB: 533000
+        - Account Number: 151548
+        - Bank: BCU
+
+        We appreciate your business!
+
+        Best regards,
+        Chris";
+
+        $username = env('CLICKSEND_USERNAME');
+        $password = env('CLICKSEND_PASSWORD');
+
+        $config = ClickSend\Configuration::getDefaultConfiguration()
+              ->setUsername($username)
+              ->setPassword($password);
+
+        $apiInstance = new ClickSend\Api\SMSApi(new Client(),$config);
+        $msg = new \ClickSend\Model\SmsMessage();
+        $msg->setBody($message); 
+        $msg->setTo($invoice->customer_contact_number);
+        $msg->setSource("sdk");
+
+        // \ClickSend\Model\SmsMessageCollection | SmsMessageCollection model
+        $sms_messages = new \ClickSend\Model\SmsMessageCollection(); 
+        $sms_messages->setMessages([$msg]);
+
+        try {
+            $result = $apiInstance->smsSendPost($sms_messages);
+            return redirect()->route('admin-dashboard')->with('success', 'Successfully generated invoice');
+        } catch (Exception $e) {
+            
+            return redirect()->back()->with('errors', 'Exception when calling SMSApi->smsSendPost: ' . $e->getMessage());
+        }
     }
     
 }

@@ -95,7 +95,7 @@
                 <input type="text" name="customer_name" placeholder="Client's Name" required />
 
                 <label for="customer_email_address">Customer Email:</label>
-                <input type="email" name="customer_email_address" placeholder="Client's Name" required />
+                <input type="email" name="customer_email_address" placeholder="e.g. 04124xxxxx" required />
 
                 <label for="customer_contact_number">Customer Contact Number:</label>
                 <input type="tel" name="customer_contact_number" placeholder="Client's Contact Number" required />
@@ -110,7 +110,7 @@
                 <input type="date" name="due_date" placeholder="Due Date" />
 
                 <label for="tax">Tax %:</label>
-                <input type="number" placeholder="0%" step="0.1" name="tax" placeholder="Tax %" />        
+                <input type="number" placeholder="0%" step="0.1" name="tax" placeholder="Tax %" value="0"/>        
                 
                 <label for="paid">$ Paid (Already):</label>
                 <input type="number" placeholder="0%" step="0.1" name="paid" placeholder="e.g. 100" value="0" />   
