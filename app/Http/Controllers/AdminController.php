@@ -189,7 +189,7 @@ class AdminController extends Controller
 
        
         $action = action([AdminController::class, 'save_invoice'], ['invoice_id' => $invoice->id]);
-        $routeName ="admin-dashboard.patch_invoice";
+        $routeName ="admin-dashboard.download_invoice";
 
         $url = route($routeName, ['invoice_id' => $invoice->id]);
 
@@ -365,7 +365,7 @@ class AdminController extends Controller
 
         $action = action([AdminController::class, 'patch_invoice'], ['invoice_id' => $invoice->id]);
 
-        $routeName = "admin-dashboard.save_invoice";
+        $routeName = "admin-dashboard.download_invoice";
         
 
         $url = route($routeName, ['invoice_id' => $invoice->id]);

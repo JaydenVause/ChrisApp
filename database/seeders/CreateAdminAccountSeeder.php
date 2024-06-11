@@ -16,8 +16,8 @@ class CreateAdminAccountSeeder extends Seeder
     {
         DB::table('users')->insert([
             'name' => "Admin",
-            'email' => "chris@coffslawnsandpropertymaintenance.net",
-            'password' => Hash::make("Coffs21")
+            'email' => "Lorem",
+            'password' => Hash::make("Password")
         ]);
     }
 }

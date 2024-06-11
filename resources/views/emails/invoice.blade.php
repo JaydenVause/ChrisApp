@@ -9,7 +9,7 @@
     <p>Invoice ID: {{ $invoice->id }}</p>
     <!-- Add more invoice details here -->
     <p>Hi {{ $invoice->customer_name }},</p>
-    <p>Thank you for choosing Coffs Lawns and Property Maintenance! We've sent your invoice to {{ $invoice->customer_email_address }}. The total cost is ${{ $invoice->total_price }}.</p>
+    <p>Thank you for choosing Coffs Lawns and Property Maintenance!  The total cost is ${{ $invoice->total_price }}.</p>
     <p>Alternatively, you can download your invoice by visiting: {{ $url }}</p>
     <p>For payment, please use:</p>
     <ul>

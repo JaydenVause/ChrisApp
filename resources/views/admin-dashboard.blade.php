@@ -134,7 +134,7 @@
                             <button type="submit">Delete</button>
                         </form>
 
-                        <a href="{{ url('/admin_panel/download_invoice/' . $invoice->id) }}">
+                        <a href="{{ url('/download_invoice/' . $invoice->id) }}">
                             <button>Download</button>
                         </a>
 
