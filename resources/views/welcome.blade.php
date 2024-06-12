@@ -65,7 +65,8 @@
                 <p class="contact__content">Ready to transform your outdoor space? Contact us today for a free quote!</p>
             </div>
             
-            <form action="#" method="post" class="contact__form">
+            <form action="{{ route('contact.submit') }}" method="post" class="contact__form">
+                @csrf
                 <label for="name" class="contact__label">Name:</label>
                 <input type="text" id="name" name="name" class="contact__input" placeholder="Please enter your name" required>
                 <label for="phone" class="contact__label">Phone Number:</label>
@@ -76,6 +77,8 @@
                 <textarea id="message" name="message" class="contact__textarea" placeholder="Leave us a message" required></textarea>
                 <button type="submit" class="contact__button">Submit</button>
             </form>
+
+
         </section>
     </x-layout>
    

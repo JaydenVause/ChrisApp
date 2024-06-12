@@ -3,7 +3,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\InvoiceController;
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ContactController;
 
 
 Route::get('/', function () {
@@ -36,3 +36,6 @@ Route::middleware(['web', 'auth'])->group(function () {
 });
 
 Route::post('/admin_panel/login', [AdminController::class, 'login'])->name('admin.login')->middleware('web');
+
+
+Route::post('/contact/submit', [ContactController::class, 'submit'])->name('contact.submit');
