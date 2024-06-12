@@ -6,10 +6,10 @@
         </li>
         <li>
             <a href="/admin_panel/create_invoice" class="btn--green">Generate Invoice</a>
-            <div>
-                <input type="text" name="search_term" placeholder="Search Term" />
-                <button>Search</button>
-            </div>
+            <form method="GET" action="{{ url('/admin_panel') }}">
+                <input type="text" name="search" placeholder="Search invoices..." value="{{ request()->input('search') }}">
+                <button type="submit">Search</button>
+            </form>
         </li>
     </ul>
 </div>

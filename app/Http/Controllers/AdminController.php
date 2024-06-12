@@ -72,12 +72,32 @@ class AdminController extends Controller
     /**
      * Index method for Admin
      */
-    function index(){
-        $invoices = Invoice::all();
-        return view("admin-dashboard", [
-            'invoices' => $invoices
-        ]);
+    public function index(Request $request)
+    {
+        $query = Invoice::query();
+    
+        // Search functionality
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where(function ($query) use ($search) {
+                $query->where('id', 'LIKE', "%{$search}%")
+                      ->orWhere('customer_name', 'LIKE', "%{$search}%")
+                      ->orWhere('customer_email_address', 'LIKE', "%{$search}%")
+                      ->orWhere('invoice_date', 'LIKE', "%{$search}%")
+                      ->orWhere('due_date', 'LIKE', "%{$search}%")
+                      ->orWhere('customer_address', 'LIKE', "%{$search}%")
+                      ->orWhere('customer_contact_number', 'LIKE', "%{$search}%");
+            });
+        }
+    
+        // Sorting by the most recent
+        $query->orderBy('invoice_date', 'desc');
+    
+        $invoices = $query->paginate(10);
+    
+        return view('admin-dashboard', ['invoices' => $invoices, 'search' => $search ?? '']);
     }
+    
 
     function formatAustralianPhoneNumber($phoneNumber) {
         // Remove any non-numeric characters from the phone number
