@@ -48,7 +48,7 @@ class ContactController extends Controller
 
         try {
             $result = $apiInstance->smsSendPost($sms_messages);
-            return redirect()->back()->with('success', 'Successfully generated invoice');
+            return redirect()->back()->with('success', 'Thank you for your message. We will get back to you soon');
         } catch (Exception $e) {
             
             return redirect()->back()->with('errors', 'Exception when calling SMSApi->smsSendPost: ' . $e->getMessage());
