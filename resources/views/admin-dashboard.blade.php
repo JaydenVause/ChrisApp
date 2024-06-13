@@ -171,7 +171,7 @@
     @media (max-width: 600px) {
         .header-mobile{
             display: block;
-            text-align: center;
+           
         }
         
         .header-desktop{
