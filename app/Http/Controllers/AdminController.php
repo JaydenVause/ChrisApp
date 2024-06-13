@@ -77,27 +77,35 @@ class AdminController extends Controller
     public function index(Request $request)
     {
         $query = Invoice::query();
-    
-        // Search functionality
+
+        // Search functionality (if needed)
         if ($request->has('search')) {
             $search = $request->input('search');
             $query->where(function ($query) use ($search) {
                 $query->where('id', 'LIKE', "%{$search}%")
-                      ->orWhere('customer_name', 'LIKE', "%{$search}%")
-                      ->orWhere('customer_email_address', 'LIKE', "%{$search}%")
-                      ->orWhere('invoice_date', 'LIKE', "%{$search}%")
-                      ->orWhere('due_date', 'LIKE', "%{$search}%")
-                      ->orWhere('customer_address', 'LIKE', "%{$search}%")
-                      ->orWhere('customer_contact_number', 'LIKE', "%{$search}%");
+                    ->orWhere('customer_name', 'LIKE', "%{$search}%")
+                    ->orWhere('customer_email_address', 'LIKE', "%{$search}%")
+                    ->orWhere('invoice_date', 'LIKE', "%{$search}%")
+                    ->orWhere('due_date', 'LIKE', "%{$search}%")
+                    ->orWhere('customer_address', 'LIKE', "%{$search}%")
+                    ->orWhere('customer_contact_number', 'LIKE', "%{$search}%");
             });
         }
-    
-        // Sorting by the most recent
-        $query->orderBy('invoice_date', 'desc');
-    
+
+        // Sorting functionality
+        $sort_by = $request->input('sort_by', 'invoice_date'); // Default sort by invoice_date
+        $sort_direction = $request->input('sort_direction', 'desc'); // Default sort direction
+
+        $query->orderBy($sort_by, $sort_direction);
+
         $invoices = $query->paginate(10);
-    
-        return view('admin-dashboard', ['invoices' => $invoices, 'search' => $search ?? '']);
+
+        return view('admin-dashboard', [
+            'invoices' => $invoices,
+            'search' => $search ?? '',
+            'sort_by' => $sort_by,
+            'sort_direction' => $sort_direction,
+        ]);
     }
     
 

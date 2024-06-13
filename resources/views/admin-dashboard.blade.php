@@ -139,6 +139,51 @@
             margin: 0 2px;
         }
     }
+
+    .header-desktop {
+        text-align: left;
+        text-decoration: none;
+        color: white;
+        background: rgba(0,0,0,.7)
+    }
+
+    .header-desktop:hover{
+        background: rgba(0,0,0,.9);
+        cursor: pointer;
+    }
+
+    .header-desktop a{
+        text-decoration: none;
+        color: white;
+        width: 100%;
+        height: 100%;
+    }
+
+    @media (min-width: 600px) {
+        .header-mobile{
+            display: none;
+            
+        }
+
+        
+    }
+
+    @media (max-width: 600px) {
+        .header-mobile{
+            display: block;
+            text-align: center;
+        }
+        
+        .header-desktop{
+            text-align: center;
+        }
+    }
+
+    .tag{
+        padding: 10px;
+    }
+
+
     </style>
 
 <x-layout>
@@ -147,17 +192,28 @@
         <div class="table-container">
             
             <table class="table">
+                <p class="tag"><strong>Services:</strong></p>
+                <tr>
+                    <th class="header-desktop"><a href="{{ route('admin-dashboard', ['sort_by' => 'id', 'sort_direction' => $sort_by == 'id' && $sort_direction == 'asc' ? 'desc' : 'asc']) }}">ID</a></th>
+                    <th class="header-desktop"><a href="{{ route('admin-dashboard', ['sort_by' => 'customer_name', 'sort_direction' => $sort_by == 'customer_name' && $sort_direction == 'asc' ? 'desc' : 'asc']) }}">Name</a></th>
+                    <th class="header-desktop"><a href="{{ route('admin-dashboard', ['sort_by' => 'customer_email_address', 'sort_direction' => $sort_by == 'customer_email_address' && $sort_direction == 'asc' ? 'desc' : 'asc']) }}">Email</a></th>
+                    <th class="header-desktop"><a href="{{ route('admin-dashboard', ['sort_by' => 'invoice_date', 'sort_direction' => $sort_by == 'invoice_date' && $sort_direction == 'asc' ? 'desc' : 'asc']) }}">Date</a></th>
+                    <th class="header-desktop"><a href="{{ route('admin-dashboard', ['sort_by' => 'due_date', 'sort_direction' => $sort_by == 'due_date' && $sort_direction == 'asc' ? 'desc' : 'asc']) }}">Due Date</a></th>
+                    <th class="header-desktop">Address</th>
+                    <th class="header-desktop"><a href="{{ route('admin-dashboard', ['sort_by' => 'customer_contact_number', 'sort_direction' => $sort_by == 'customer_contact_number' && $sort_direction == 'asc' ? 'desc' : 'asc']) }}">Contact Number</a></th>
+                    <th class="header-desktop">Actions</th>
+                </tr>
                 @foreach($invoices as $invoice)
                 <tr>
-                    <td><p><strong>ID:</strong></p><p>{{$invoice->id}}</p></td>
-                    <td><p><strong>Name:</strong></p><p>{{$invoice->customer_name}}</p></td>
-                    <td><p><strong>Email:</strong></p><p>{{$invoice->customer_email_address}}</p></td>
-                    <td><p><strong>Date:</strong></p><p class="date-object">{{$invoice->invoice_date}}</p></td>
-                    <td><p><strong>Due Date:</strong></p><p class="date-object">{{$invoice->due_date}}</p></td>
-                    <td><p><strong>Address:</strong></p><p><address>{{$invoice->customer_address}}</address></p></td>
-                    <td><p><strong>Contact Number:</strong></p><p>{{$invoice->customer_contact_number}}</p></td>
+                    <td><p class="header-mobile"><strong>ID:</strong></p><p>{{$invoice->id}}</p></td>
+                    <td><p class="header-mobile"><strong>Name:</strong></p><p>{{$invoice->customer_name}}</p></td>
+                    <td><p class="header-mobile"><strong>Email:</strong></p><p>{{$invoice->customer_email_address}}</p></td>
+                    <td><p class="header-mobile"><strong>Date:</strong></p><p class="date-object">{{$invoice->invoice_date}}</p></td>
+                    <td><p class="header-mobile"><strong>Due Date:</strong></p><p class="date-object">{{$invoice->due_date}}</p></td>
+                    <td><p class="header-mobile"><strong>Address:</strong></p><p><address>{{$invoice->customer_address}}</address></p></td>
+                    <td><p class="header-mobile"><strong>Contact Number:</strong></p><p>{{$invoice->customer_contact_number}}</p></td>
                     <td>
-                        <p><strong>Actions:</strong></p>
+                        <p class="header-mobile"><strong>Actions:</strong></p>
                         <span>
                             <a href="{{ url('/admin_panel/edit_invoice/' . $invoice->id) }}"><button>Edit</button></a>
                             <form action="{{ url('/admin_panel/delete_invoice/' . $invoice->id) }}" method="POST" style="display:inline;">
