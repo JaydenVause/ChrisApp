@@ -234,7 +234,7 @@ class AdminController extends Controller
 
         $message = "Hi $invoice->customer_name,
         
-        Thank you for choosing Coffs Lawns and Property Maintenance! We've sent your invoice to $invoice->customer_email_address. The total cost is $$invoice->total_price.
+        Thank you for choosing Coffs Lawns and Property Maintenance! We've sent your invoice to $invoice->customer_email_address. The total cost is $".number_format($invoice->total_price, 2)."
 
         Alternatively you can download your invoice by visiting: $url
         
@@ -393,8 +393,8 @@ class AdminController extends Controller
         $url = route($routeName, ['invoice_id' => $invoice->id]);
     
         $pdfContent = Browsershot::html($view)->noSandbox()
-            ->setNodeBinary("C:\\Program Files\\nodejs\\node.exe")
-            ->setChromePath("C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe")
+            ->setNodeBinary($this->getNodePath())
+            ->setChromePath($this->getChromePath())
             ->format('A4')
             ->savePdf('../pdf/'.$invoice->id.'.pdf');
 
@@ -410,7 +410,7 @@ class AdminController extends Controller
 
         $message = "Hi $invoice->customer_name,
         
-        Thank you for choosing Coffs Lawns and Property Maintenance! We've sent your invoice to $invoice->customer_email_address. The total cost is $$invoice->total_price.
+        Thank you for choosing Coffs Lawns and Property Maintenance! We've sent your invoice to $invoice->customer_email_address. The total cost is $".number_format($invoice->total_price, 2)."
 
         Alternatively you can download your invoice by visiting: $url
         

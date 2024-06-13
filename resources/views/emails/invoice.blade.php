@@ -7,9 +7,8 @@
     <h1>Invoice</h1>
 
     <p>Invoice ID: {{ $invoice->id }}</p>
-    <!-- Add more invoice details here -->
     <p>Hi {{ $invoice->customer_name }},</p>
-    <p>Thank you for choosing Coffs Lawns and Property Maintenance!  The total cost is ${{ $invoice->total_price }}.</p>
+    <p>Thank you for choosing Coffs Lawns and Property Maintenance! The total cost is ${{ number_format($invoice->total_price, 2) }}</p>
     <p>Alternatively, you can download your invoice by visiting: {{ $url }}</p>
     <p>For payment, please use:</p>
     <ul>
