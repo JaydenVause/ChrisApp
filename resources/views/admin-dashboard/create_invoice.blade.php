@@ -90,7 +90,8 @@
             
             <form action="/admin_panel/save_invoice" method="POST" class="invoice-form" id="invoiceForm">
                 @csrf
-
+                <button type="button" id="add_contact_btn">Select from contacts list</button>
+                <p id="result_pane"></p>
                 <label for="customer_name">Customer Name:</label>
                 <input type="text" name="customer_name" placeholder="Client's Name" required />
 
@@ -149,4 +150,27 @@
         function removeService(button) {
             button.parentElement.remove();
         }
+
+        
+
+        async function getContacts() {
+            const props = ["name", "email", "tel", "address", "icon"];
+            const opts = { multiple: false };
+            try {
+                const contacts = await navigator.contacts.select(props, opts);
+                // handleResults(contacts);
+                return contacts;
+            } catch (ex) {
+                return ex;
+                // Handle any errors here.
+            }
+        }
+
+        let add_contact_btn = document.querySelector('#add_contact_btn');
+        let result_pane = document.querySelector("#result_pane");
+
+        add_contact_btn.addEventListener('click', function(){
+            result_pane.innerText = getContacts();
+        })
+
     </script>
