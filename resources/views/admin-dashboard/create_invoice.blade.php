@@ -172,7 +172,7 @@
 
         add_contact_btn.addEventListener('click', function(){
             let contact = getContacts();
-            result_pane.innerText = contact.name + " " + contact.tel;
+            result_pane.innerText = contact[0]['name'] + " " + contact[0]['tel'];
             console.log(getContacts())
         })
 
