@@ -177,7 +177,7 @@
                 document.querySelector('#customer_contact_number').value = cleanTel;
                 document.querySelector('#customer_address').value = contact.address;
 
-                result_pane.innerText = "Contact information has been filled in.";
+                result_pane.innerText = contact;
             } else {
                 result_pane.innerText = "No contacts selected or an error occurred.";
             }
