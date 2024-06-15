@@ -158,22 +158,23 @@
             const opts = { multiple: false };
             try {
                 const contacts = await navigator.contacts.select(props, opts);
-                // handleResults(contacts);
-                console.log(contacts)
                 return contacts;
             } catch (ex) {
                 return ex;
-                // Handle any errors here.
             }
         }
 
         let add_contact_btn = document.querySelector('#add_contact_btn');
         let result_pane = document.querySelector("#result_pane");
 
-        add_contact_btn.addEventListener('click', function(){
-            let contact = getContacts();
-            result_pane.innerText = contact[0]['name'] + " " + contact[0]['tel'];
-            console.log(getContacts())
-        })
+        add_contact_btn.addEventListener('click', async function() {
+            let contacts = await getContacts();
+            if (contacts && contacts.length > 0) {
+                result_pane.innerText = contacts[0].name + " " + contacts[0].tel;
+            } else {
+                result_pane.innerText = "No contacts selected or an error occurred.";
+            }
+        });
+
 
     </script>
