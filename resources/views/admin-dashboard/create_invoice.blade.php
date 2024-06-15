@@ -159,6 +159,7 @@
             try {
                 const contacts = await navigator.contacts.select(props, opts);
                 // handleResults(contacts);
+                console.log(contacts)
                 return contacts;
             } catch (ex) {
                 return ex;
@@ -170,7 +171,9 @@
         let result_pane = document.querySelector("#result_pane");
 
         add_contact_btn.addEventListener('click', function(){
-            result_pane.innerText = getContacts();
+            let contact = getContacts();
+            result_pane.innerText = contact.name + " " + contact.tel;
+            console.log(getContacts())
         })
 
     </script>
