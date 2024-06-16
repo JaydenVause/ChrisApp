@@ -152,15 +152,20 @@
         }
 
         async function getContacts() {
-            const props = ["name", "email", "tel", "address", "icon"];
-            const opts = { multiple: false };
-            try {
-                const contacts = await navigator.contacts.select(props, opts);
-                return contacts;
-            } catch (ex) {
-                console.error("Error fetching contacts:", ex);
-                return null;
-            }
+            const props = [];
+            props.push('name');
+            props.push('email');
+            props.push('tel');
+            props.push('address');
+            props.push('icon');
+            
+            const opts = {multiple: false};
+            
+            
+            const contacts = await navigator.contacts.select(props, opts);
+            return contacts;
+            
+
         }
 
         function cleanPhoneNumber(phone) {
@@ -173,6 +178,12 @@
 
         add_contact_btn.addEventListener('click', async function() {
             let contacts = await getContacts();
+            // let contacts = [
+            //     {
+            //         name: 'Chris Webb',
+            //         tel: '01242332323'
+            //     }
+            // ];
             if (contacts && contacts.length > 0) {
                 let contact = contacts[0];
                 let cleanTel = cleanPhoneNumber(contact.tel);
