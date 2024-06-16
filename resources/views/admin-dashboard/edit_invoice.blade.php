@@ -1,9 +1,14 @@
-<style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Invoice</title>
+    <style>
         .admin-dashboard {
             margin: 0 auto;
             background-color: #f4f4f4;
             max-width: 900px;
-            
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
@@ -68,8 +73,6 @@
 
         /* Responsive styles */
         @media only screen and (max-width: 600px) {
-            
-
             .service-item {
                 flex-direction: column;
             }
@@ -79,12 +82,10 @@
                 margin-top: 10px;
             }
         }
-
-        
     </style>
 </head>
 <body>
-<x-layout>
+    <x-layout>
         <div class="admin-dashboard">
             <x-dashboard-nav />
             
@@ -92,17 +93,20 @@
                 @csrf
                 @method('PATCH')
 
+                <button type="button" id="add_contact_btn">Select from contacts list</button>
+                <p id="result_pane"></p>
+
                 <label for="customer_name">Customer Name:</label>
-                <input type="text" name="customer_name" placeholder="Client's Name" value="{{ $invoice->customer_name }}" required />
+                <input type="text" name="customer_name" id="customer_name" placeholder="Client's Name" value="{{ $invoice->customer_name }}" required />
 
                 <label for="customer_email_address">Customer Email:</label>
-                <input type="email" name="customer_email_address" placeholder="Client's Email" value="{{ $invoice->customer_email_address }}" required />
+                <input type="email" name="customer_email_address" id="customer_email_address" placeholder="Client's Email" value="{{ $invoice->customer_email_address }}" required />
 
                 <label for="customer_contact_number">Customer Contact Number:</label>
-                <input type="tel" name="customer_contact_number" placeholder="Client's Contact Number" value="{{ $invoice->customer_contact_number }}" required />
+                <input type="tel" name="customer_contact_number" id="customer_contact_number" placeholder="Client's Contact Number" value="{{ $invoice->customer_contact_number }}" required />
 
                 <label for="customer_address">Address:</label>
-                <input type="text" name="customer_address" placeholder="Customer's Address" value="{{ $invoice->customer_address }}" />
+                <input type="text" name="customer_address" id="customer_address" placeholder="Customer's Address" value="{{ $invoice->customer_address }}" />
 
                 <label for="invoice_date">Date:</label>
                 <input type="date" name="invoice_date" value="{{ $invoice->invoice_date }}" />
@@ -160,4 +164,41 @@
         function removeService(button) {
             button.parentElement.remove();
         }
+
+        async function getContacts() {
+            const props = ["name", "email", "tel", "address", "icon"];
+            const opts = { multiple: false };
+            try {
+                const contacts = await navigator.contacts.select(props, opts);
+                return contacts;
+            } catch (ex) {
+                return ex;
+            }
+        }
+
+        function cleanPhoneNumber(phone) {
+            return phone.replace(/(?!^\+61)\D/g, '');
+        }
+
+        let add_contact_btn = document.querySelector('#add_contact_btn');
+        let result_pane = document.querySelector("#result_pane");
+
+        add_contact_btn.addEventListener('click', async function() {
+            let contacts = await getContacts();
+            if (contacts && contacts.length > 0) {
+                let contact = contacts[0];
+                let cleanTel = cleanPhoneNumber(contact.tel[0]);
+
+                document.querySelector('#customer_name').value = contact.name[0] || '';
+                document.querySelector('#customer_email_address').value = contact.email[0] || '';
+                document.querySelector('#customer_contact_number').value = cleanTel || '';
+                document.querySelector('#customer_address').value = contact.address[0].addressLine[0] || '';
+
+                result_pane.innerText = `Contact information filled: ${contact.name[0]}, ${contact.email[0]}, ${cleanTel}, ${contact.address[0].addressLine[0]}`;
+            } else {
+                result_pane.innerText = "No contacts selected or an error occurred.";
+            }
+        });
     </script>
+</body>
+</html>
