@@ -62,7 +62,7 @@
                 </video>
                 <!-- <img class="hero-section__image" src="https://th.bing.com/th/id/R.c002f934e1f040498f198a632e6adccc?rik=%2b5GS9jcFjD4KXg&riu=http%3a%2f%2fwww.cameraegg.org%2fwp-content%2fuploads%2f2012%2f09%2fnikon-d600-sample-images.jpg&ehk=711QrJdIO8zFSeTR4V7jZeJVcOjX7jTba0oQ93rP0Mo%3d&risl=&pid=ImgRaw&r=0" alt="Hero Image"> -->
                 <div class="hero-section__content">
-                    <h1 class="hero__title">The Best Commercial & Domestic Lawn and Maintenance in Coffs Harbour</h1>
+                    <h1 class="hero__title">The Best Commercial & Domestic Lawn and Property Maintenance in Coffs Harbour</h1>
                     <p class="hero__subtitle">Providing top-notch lawn care services to keep your property looking its best.</p>
                     <a href="tel:+61412779731" class="hero__button">Get A Quote</a>
                    
