@@ -193,6 +193,24 @@ html {
     .footer svg path {
     fill: #3ec509;
 }
+
+.invoice-notes {
+    border: 2px solid black;
+    padding: 20px;
+    margin-top: 20px;
+    font-size: 1.2rem;
+    background-color: #f9f9f9;
+}
+.invoice-notes h2 {
+    margin-top: 0;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+.invoice-notes p {
+    margin: 0;
+    white-space: pre-wrap; /* Preserve whitespace formatting */
+}
+
     
 </style>
 
@@ -329,6 +347,12 @@ html {
             Balance Due: ${{ sprintf('%0.2f', $invoice->total_price - $invoice->paid) }}
         </div>
     </div>
+
+    <div class="invoice-notes">
+        <h2>Notes</h2>
+        <p>{{$invoice->notes}}</p>
+    </div>
+
 
     <div class="footer">
         <h2>Thank you for your business</h2>

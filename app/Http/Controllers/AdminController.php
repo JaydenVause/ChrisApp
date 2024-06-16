@@ -143,7 +143,7 @@ class AdminController extends Controller
 
             "due_date" => "required",
             "services" => "required",
-            // "notes" => "required",
+            "notes" => "max:1000",
             "tax" => "required",
             // "terms" => "required",
             "paid" => "integer",
@@ -166,7 +166,7 @@ class AdminController extends Controller
         $invoice->customer_contact_number = $this->formatAustralianPhoneNumber($validated['customer_contact_number']);
         $invoice->invoice_date = $validated['invoice_date'];
         $invoice->due_date = $validated['due_date'];
-        // $invoice->notes = $validated['notes'];
+        $invoice->notes = $validated['notes'];
         // $invoice->terms = $validated['terms'];
         $invoice->total_price = 0;
         $invoice->paid = $validated['paid'];
@@ -335,7 +335,7 @@ class AdminController extends Controller
             "customer_email_address" => "required",
             "customer_contact_number" => "required", 
             "invoice_date" => "required",
-            
+            "notes" => "max:1000",
             "due_date" => "required",
             "services" => "required",
             "tax" => "required",
@@ -358,6 +358,7 @@ class AdminController extends Controller
         $invoice->total_price = 0;
         $invoice->save();
         $services = [];
+        $invoice->notes = $validated['notes'];
     
         foreach($validated['services'] as $service) {
             $new_service_object = new Service;

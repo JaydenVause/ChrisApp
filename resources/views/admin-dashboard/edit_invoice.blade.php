@@ -52,6 +52,10 @@
         .service-item {
             display: flex;
             gap: 10px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
         }
 
         .service-item input {
@@ -134,6 +138,9 @@
                     @endforeach
                 </div>
                 <button type="button" onclick="addService()">Add Service</button>
+
+                <label for="notes">Notes:</label>
+                <textarea name="notes" id="notes" placeholder="Additional notes..." rows="4">{{ $invoice->notes }}</textarea>
 
                 <button type="submit">Save Invoice</button>
             </form>
