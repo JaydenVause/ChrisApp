@@ -1,16 +1,85 @@
-        <x-layout>
+<style>
+.facebook-promo {
+    /* position: fixed;
+    top: 80px;
+    left: 0; */
+    width: 100%;
+    background-color: #3b5998; /* Facebook blue */
+    color: #fff;
+    padding: 15px 0; /* Reduced padding */
+    text-align: center;
+    z-index: 1000; /* Ensure it's above other content */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Optional: Add shadow for depth */
+    display: flex;
+}
+
+.facebook-promo__content {
+    gap: 30px;
+    margin: 0 auto; /* Center content horizontally */
+    display: flex;
+    align-items: center;
+    
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.facebook-promo__title {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.facebook-promo__text {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.facebook-promo__link {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #fff;
+    color: #3b5998; /* Facebook blue */
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.facebook-promo__link:hover {
+    background-color: #e9ecef; /* Light background on hover */
+    color: #3b5998; /* Facebook blue */
+}
+
+.fab.fa-facebook-f {
+    /* margin-right: 10px; */
+}
+
+
+</style>
+      
+      <x-layout>
             <div class="hero-section">
                 <video autoplay muted loop class="hero-video" >
                     <source src="<?php echo asset("videos/lawn01.mp4"); ?>" type="video/mp4">
                 </video>
                 <!-- <img class="hero-section__image" src="https://th.bing.com/th/id/R.c002f934e1f040498f198a632e6adccc?rik=%2b5GS9jcFjD4KXg&riu=http%3a%2f%2fwww.cameraegg.org%2fwp-content%2fuploads%2f2012%2f09%2fnikon-d600-sample-images.jpg&ehk=711QrJdIO8zFSeTR4V7jZeJVcOjX7jTba0oQ93rP0Mo%3d&risl=&pid=ImgRaw&r=0" alt="Hero Image"> -->
                 <div class="hero-section__content">
-                    <h1 class="hero__title">The Best Commercial and Domestic Lawn and Maintenance in Coffs Harbour</h1>
+                    <h1 class="hero__title">The Best Commercial & Domestic Lawn and Maintenance in Coffs Harbour</h1>
                     <p class="hero__subtitle">Providing top-notch lawn care services to keep your property looking its best.</p>
                     <a href="tel:+61412779731" class="hero__button">Get A Quote</a>
+                   
                 </div>
             </div>
         </div>
+
+
+<section class="facebook-promo">
+    <div class="facebook-promo__content">
+        <h2 class="facebook-promo__title">Connect with Us on Facebook</h2>
+        
+        <a href="https://www.facebook.com/coffslawnsnpropertymaintenance/" target="_blank" rel="noopener noreferrer" class="facebook-promo__link">
+            <i class="fab fa-facebook-f"></i> Visit Our Facebook Page
+        </a>
+    </div>
+</section>
         <section id="services" class="services">
             <h2 class="services__title">Our Services</h2>
             <ul class="services__list">
@@ -91,6 +160,11 @@
             })();
         </script>
         <!--End of Tawk.to Script-->
+
+        <a href="https://www.facebook.com/coffslawnsnpropertymaintenance/" target="_blank" rel="noopener noreferrer" class="contact__social-link">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+
         </section>
     </x-layout>
    

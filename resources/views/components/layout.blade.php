@@ -42,6 +42,38 @@
         }
 
 
+/* Social media icons */
+.social-icons {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: #3b5998; /* Facebook blue */
+    color: #fff;
+    font-size: 1.5rem;
+    text-align: center;
+    border-radius: 50%;
+    margin: 0 10px;
+    transition: background-color 0.3s ease;
+}
+
+.social-icon:hover {
+    background-color: #2d4373; /* Darker shade of Facebook blue on hover */
+}
+
+.social-ad-text {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: white;
+    text-align: center;
+}
+
 
         
         

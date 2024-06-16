@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -41,6 +43,10 @@
             </nav>
 
         </header>
+
+        
+
+
         <div class="fade_screen fade_screen--hidden" id="fade_screen">
         <!-- mobile menu -->
         </div>

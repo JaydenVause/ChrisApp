@@ -11,7 +11,7 @@
                 </ul>
             </nav>
         </footer>
-
+        <script src="https://kit.fontawesome.com/8b0d68faf4.js" crossorigin="anonymous"></script>
         <!-- Script to toggle mobile menu -->
         <script>
             function toggleMobileMenu() {
