@@ -1,4 +1,8 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         .admin-dashboard {
             margin: 0 auto;
@@ -78,7 +82,8 @@
             }
         }
     </style>
-
+</head>
+<body>
     <x-layout>
         <div class="admin-dashboard">
             <x-dashboard-nav />
@@ -153,7 +158,8 @@
                 const contacts = await navigator.contacts.select(props, opts);
                 return contacts;
             } catch (ex) {
-                return ex;
+                console.error("Error fetching contacts:", ex);
+                return null;
             }
         }
 
@@ -172,15 +178,16 @@
                 let cleanTel = cleanPhoneNumber(contact.tel);
 
                 // Fill the form fields with the contact information
-                document.querySelector('#customer_name').value = contact.name;
-                document.querySelector('#customer_email_address').value = contact.email;
-                document.querySelector('#customer_contact_number').value = cleanTel;
-                document.querySelector('#customer_address').value = contact.address;
+                document.querySelector('#customer_name').value = contact.name || '';
+                document.querySelector('#customer_email_address').value = contact.email || '';
+                document.querySelector('#customer_contact_number').value = cleanTel || '';
+                document.querySelector('#customer_address').value = contact.address || '';
 
-                result_pane.innerText = contact;
+                result_pane.innerText = `Contact information filled: ${contact.name}, ${contact.email}, ${cleanTel}, ${contact.address}`;
             } else {
                 result_pane.innerText = "No contacts selected or an error occurred.";
             }
         });
     </script>
-
+</body>
+</html>
