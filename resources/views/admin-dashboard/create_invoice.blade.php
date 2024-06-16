@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
     <style>
         .admin-dashboard {
             margin: 0 auto;
@@ -112,7 +113,7 @@
 
                 <label for="tax">Tax %:</label>
                 <input type="number" placeholder="0%" step="0.1" name="tax" placeholder="Tax %" value="0"/>        
-                
+
                 <label for="paid">$ Paid (Already):</label>
                 <input type="number" placeholder="0%" step="0.1" name="paid" placeholder="e.g. 100" value="0" />   
 
@@ -152,24 +153,17 @@
         }
 
         async function getContacts() {
-            const props = [];
-            props.push('name');
-            props.push('email');
-            props.push('tel');
-            props.push('address');
-            props.push('icon');
-            
-            const opts = {multiple: false};
-            
-            
-            const contacts = await navigator.contacts.select(props, opts);
-            return contacts;
-            
-
+            const props = ["name", "email", "tel", "address", "icon"];
+            const opts = { multiple: false };
+            try {
+                const contacts = await navigator.contacts.select(props, opts);
+                return contacts;
+            } catch (ex) {
+                return ex;
+            }
         }
 
         function cleanPhoneNumber(phone) {
-            // Replace all non-numeric characters except for leading +61
             return phone.replace(/(?!^\+61)\D/g, '');
         }
 
@@ -178,23 +172,16 @@
 
         add_contact_btn.addEventListener('click', async function() {
             let contacts = await getContacts();
-            // let contacts = [
-            //     {
-            //         name: 'Chris Webb',
-            //         tel: '01242332323'
-            //     }
-            // ];
             if (contacts && contacts.length > 0) {
                 let contact = contacts[0];
-                let cleanTel = cleanPhoneNumber(contact.tel);
+                let cleanTel = cleanPhoneNumber(contact.tel[0]);
 
-                // Fill the form fields with the contact information
-                document.querySelector('#customer_name').value = contact.name || '';
-                document.querySelector('#customer_email_address').value = contact.email || '';
+                document.querySelector('#customer_name').value = contact.name[0] || '';
+                document.querySelector('#customer_email_address').value = contact.email[0] || '';
                 document.querySelector('#customer_contact_number').value = cleanTel || '';
-                document.querySelector('#customer_address').value = contact.address || '';
+                document.querySelector('#customer_address').value = contact.address[0].addressLine[0] || '';
 
-                result_pane.innerText = `Contact information filled: ${contact.name}, ${contact.email}, ${cleanTel}, ${contact.address}`;
+                result_pane.innerText = `Contact information filled: ${contact.name[0]}, ${contact.email[0]}, ${cleanTel}, ${contact.address[0].addressLine[0]}`;
             } else {
                 result_pane.innerText = "No contacts selected or an error occurred.";
             }
