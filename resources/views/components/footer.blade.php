@@ -75,5 +75,9 @@
 
         </script>
         <script src="<?php echo asset("js/mobile_menu.js"); ?>"></script>
-    </body>
+           
+            </div>
+
+<script src="<?php echo asset("js/main.js"); ?>"></script>
+</body>
 </html>

@@ -124,7 +124,7 @@ h1,h2,h3,h4,h5,h6,p,a{
 }
 
 .li__a--animated:hover {
-    color: #59C033; /* Green color on hover */
+    color: #36b807; /* Green color on hover */
 }
 
 @keyframes fadeIn {
@@ -211,7 +211,7 @@ h1,h2,h3,h4,h5,h6,p,a{
     display: flex;
     justify-content: center;
     align-items: center;
-    fill: #59C033;
+    fill: #36b807;
 }
 
 .icon:hover{
@@ -537,7 +537,7 @@ body, html {
     padding: 15px 30px;
     font-size: 1rem;
     color: white;
-    background-color: #59C033;
+    background-color: #36b807;
     text-decoration: none;
     border-radius: 5px;
     transition: background-color 0.3s ease;
@@ -660,7 +660,7 @@ body, html {
 .about {
     padding: 50px 20px;
     text-align: center;
-    background-color: #59C033;
+    background-color: #36b807;
     color: white;
     display: flex;
     justify-content: center;
@@ -689,7 +689,7 @@ body, html {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    background-color: #59C033;
+    background-color: #36b807;
     padding: 40px 20px;
     color: #fff;
 }
@@ -862,7 +862,7 @@ body, html {
 }
 
 .li__a--animated-mobile:hover {
-    color: #59C033; /* Green color on hover */
+    color: #36b807; /* Green color on hover */
 }
 
 @keyframes fadeIn {
@@ -924,7 +924,7 @@ body, html {
 }
 
 .li__a--animated-mobile:hover {
-    color: #59C033; /* Green color on hover */
+    color: #36b807; /* Green color on hover */
 }
 
 @keyframes fadeIn {
@@ -934,6 +934,217 @@ body, html {
     100% {
         opacity: 1;
     }
+}
+
+
+/* About Us Title */
+h2.about__title {
+    color: #FFFFFF; /* Adjusted to black for better contrast */
+    background-color: #36b807;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+/* About Us Content */
+p.about__content {
+    color: #FFFFFF; /* Adjusted to black for better contrast */
+    background-color: #36b807;
+    font-size: 19.2px;
+    font-weight: normal;
+}
+
+/* Individual Names and Links */
+strong {
+    color: #0000ff; /* Adjusted to a darker blue for better contrast */
+    background-color: #ffffff;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+a.sk-google-review-button-more {
+    color: #0000ff; /* Adjusted to a darker blue for better contrast */
+    background-color: #ffffff;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+/* Load More Reviews Button */
+button.sk-google-reviews-load-more-posts {
+    color: #ffffff;
+    background-color: #eb6e00;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+/* Contact Us Title */
+h2.contact__title {
+    color: #FFFFFF; /* Adjusted to black for better contrast */
+    background-color: #36b807;
+    font-size: 38.4px;
+    font-weight: bold;
+}
+
+/* Contact Us Content */
+p.contact__content {
+    color: #FFFFFF; /* Adjusted to black for better contrast */
+    background-color: #36b807;
+    font-size: 22.4px;
+    font-weight: normal;
+}
+
+
+/* Submit Button */
+button.contact__button {
+    color: #ffffff; /* White text */
+    background-color: #0056b3; /* Darker blue background */
+    font-size: 16px;
+    font-weight: normal;
+    padding: 10px 20px; /* Adjust padding as needed */
+    border: none; /* Remove border if not required */
+}
+
+/* Adjust padding and border styles as per your design */
+
+/* Hover state (optional, adjust as per your design) */
+button.contact__button:hover {
+    background-color: #007bff; /* Lighter blue on hover */
+    cursor: pointer; /* Change cursor on hover */
+}
+
+
+.sk-google-review-button-more {
+    color: #0056b3; /* Adjusted foreground color to meet contrast ratio */
+}
+.sk-google-reviews-load-more-posts {
+    color: #000000; /* Black text */
+}
+.facebook-promo {
+    /* position: fixed;
+    top: 80px;
+    left: 0; */
+    width: 100%;
+    background-color: #3b5998; /* Facebook blue */
+    color: #fff;
+    padding: 15px 0; /* Reduced padding */
+    text-align: center;
+    z-index: 1000; /* Ensure it's above other content */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Optional: Add shadow for depth */
+    display: flex;
+}
+
+.facebook-promo__content {
+    gap: 30px;
+    margin: 0 auto; /* Center content horizontally */
+    display: flex;
+    align-items: center;
+    
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.facebook-promo__title {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.facebook-promo__text {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.facebook-promo__link {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #fff;
+    color: #3b5998; /* Facebook blue */
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.facebook-promo__link:hover {
+    background-color: #e9ecef; /* Light background on hover */
+    color: #3b5998; /* Facebook blue */
+}
+
+.fab.fa-facebook-f {
+    /* margin-right: 10px; */
+}
+
+
+.alert {
+    padding: 20px;
+    
+    color: white; /* White text */
+    margin-bottom: 15px; /* Space below the alert */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Slight shadow */
+}
+
+.alert ul {
+    list-style-type: none; /* Remove bullets */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margin */
+}
+
+.alert li {
+    margin-bottom: 10px; /* Space between list items */
+}
+
+.alert:empty {
+    display: none; /* Hide alert box if empty */
+}
+
+@media (max-width: 600px) {
+    .alert {
+        padding: 15px; /* Adjust padding for smaller screens */
+        font-size: 14px; /* Smaller font size */
+    }
+
+    .alert li {
+        margin-bottom: 8px; /* Adjust margin for smaller screens */
+    }
+}
+
+.alert--danger{
+    background-color: #f44336; /* Red background */
+}
+
+.alert--success{
+    background-color: #44CC5D;
+}
+
+
+/* Social media icons */
+.social-icons {
+margin-top: 20px;
+text-align: center;
+}
+
+.social-icon {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+width: 40px;
+height: 40px;
+background-color: #3b5998; /* Facebook blue */
+color: #fff;
+font-size: 1.5rem;
+text-align: center;
+border-radius: 50%;
+margin: 0 10px;
+transition: background-color 0.3s ease;
+}
+
+.social-icon:hover {
+background-color: #2d4373; /* Darker shade of Facebook blue on hover */
+}
+
+.social-ad-text {
+margin-top: 10px;
+font-size: 0.9rem;
+color: white;
+text-align: center;
 }
 
 
