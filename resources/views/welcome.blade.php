@@ -161,10 +161,6 @@
         </script>
         <!--End of Tawk.to Script-->
 
-        <a href="https://www.facebook.com/coffslawnsnpropertymaintenance/" target="_blank" rel="noopener noreferrer" class="contact__social-link">
-            <i class="fab fa-facebook-f"></i>
-        </a>
-
         </section>
     </x-layout>
    
