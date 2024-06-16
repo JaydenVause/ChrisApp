@@ -93,7 +93,7 @@ class AdminController extends Controller
         }
 
         // Sorting functionality
-        $sort_by = $request->input('sort_by', 'invoice_date'); // Default sort by invoice_date
+        $sort_by = $request->input('sort_by', 'updated_at'); // Default sort by invoice_date
         $sort_direction = $request->input('sort_direction', 'desc'); // Default sort direction
 
         $query->orderBy($sort_by, $sort_direction);
