@@ -8,7 +8,7 @@
 
     <p>Invoice ID: {{ $invoice->id }}</p>
     <p>Hi {{ $invoice->customer_name }},</p>
-    <p>Thank you for choosing Coffs Lawns and Property Maintenance! The total cost is ${{ number_format($invoice->total_price, 2) }}</p>
+    <p>Thank you for choosing Coffs Lawns and Property Maintenance! The total cost is ${{ sprintf('%0.2f', $invoice->total_price - $invoice->paid) }}</p>
     <p>Alternatively, you can download your invoice by visiting: {{ $url }}</p>
     <p>For payment, please use:</p>
     <ul>

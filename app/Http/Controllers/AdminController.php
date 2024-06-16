@@ -242,7 +242,7 @@ class AdminController extends Controller
 
         $message = "Hi $invoice->customer_name,
         
-        Thank you for choosing Coffs Lawns and Property Maintenance! We've sent your invoice to $invoice->customer_email_address. The total cost is $".number_format($invoice->total_price, 2)."
+        Thank you for choosing Coffs Lawns and Property Maintenance! We've sent your invoice to $invoice->customer_email_address. The total cost is $". sprintf('%0.2f', $invoice->total_price - $invoice->paid)."
 
         Alternatively you can download your invoice by visiting: $url
         
@@ -419,7 +419,7 @@ class AdminController extends Controller
 
         $message = "Hi $invoice->customer_name,
         
-        Thank you for choosing Coffs Lawns and Property Maintenance! We've sent your invoice to $invoice->customer_email_address. The total cost is $".number_format($invoice->total_price, 2)."
+        Thank you for choosing Coffs Lawns and Property Maintenance! We've sent your invoice to $invoice->customer_email_address. The total cost is $". sprintf('%0.2f', $invoice->total_price - $invoice->paid)."
 
         Alternatively you can download your invoice by visiting: $url
         
