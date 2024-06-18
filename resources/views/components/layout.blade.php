@@ -24,6 +24,8 @@
 
             
 
-    {{ $slot }}
-    
+@yield('content')
+
+
+
 <x-footer />

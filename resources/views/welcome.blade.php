@@ -1,7 +1,9 @@
-<x-layout>
-    <x-slot name="title">
-        Coffs Lawns And Property Maintenance | Home
-    </x-slot>
+@extends('components.layout')
+
+@section('title', $title)
+
+@section('content')
+
 
     <div class="hero-section">
         <video autoplay muted loop class="hero-video">
@@ -103,4 +105,4 @@
         <!-- End of Tawk.to Script -->
 
     </section>
-</x-layout>
+@endsection

@@ -7,8 +7,9 @@ use App\Http\Controllers\ContactController;
 
 
 Route::get('/', function () {
-    return view('welcome', ['title' => 'Home']);
+    return view('welcome', ['title' => "Home"]);
 })->name('home');
+
 
 Route::get('/invoices', function(){
     return view("invoices", ['title' => 'Invoices']);

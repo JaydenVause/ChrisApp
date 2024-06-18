@@ -186,7 +186,12 @@
 
     </style>
 
-<x-layout>
+@extends('components.layout')
+
+@section('title', $title)
+
+@section('content')
+
     <div class="admin-dashboard">
         <x-dashboard-nav />
         <div class="table-container">
@@ -233,7 +238,7 @@
 
         </div>
     </div>
-</x-layout>
+    @endsection
 <script>
     function print_out_date_australia(string){
         let new_string = string.split("-");

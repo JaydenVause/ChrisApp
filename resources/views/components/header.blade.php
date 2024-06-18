@@ -3,7 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Coffs Lawns And Property Maintenance | @yield('title', 'Home')</title>
+    <title>Coffs Lawns And Property Maintenance | @yield('title', 'Default Title')</title>
+    
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <meta name="description" content="Professional lawn and property maintenance services in Coffs Harbour, NSW. Contact us for expert lawn mowing, hedge trimming, and garden maintenance.">
     <meta name="keywords" content="Coffs Harbour lawn maintenance, property maintenance Coffs Harbour, garden care, hedge trimming">
