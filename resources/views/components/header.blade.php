@@ -19,7 +19,10 @@
     <meta itemprop="headline" content="Coffs Lawns and Property Maintenance"/>
     <meta itemprop="description" content="Professional lawn mowing and property maintenance services in Coffs Harbour."/>
     <meta itemprop="author" content="Coffs Lawns and Property Maintenance"/>
-
+    <meta name="name" content="Coffs Lawns and Property Maintenance"/>
+    <meta name="headline" content="Coffs Lawns and Property Maintenance"/>
+    <meta name="description" content="Professional lawn mowing and property maintenance services in Coffs Harbour."/>
+    <meta name="author" content="Coffs Lawns and Property Maintenance"/>
     <!-- Twitter Cards -->
     <meta name="twitter:title" content="Coffs Lawns and Property Maintenance"/>
     <meta name="twitter:url" content="https://coffslawnsandpropertymaintenance.com/"/>
