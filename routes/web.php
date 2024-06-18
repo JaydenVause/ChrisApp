@@ -7,11 +7,11 @@ use App\Http\Controllers\ContactController;
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome', ['title' => 'Home']);
 })->name('home');
 
 Route::get('/invoices', function(){
-    return view("invoices");
+    return view("invoices", ['title' => 'Invoices']);
 })->name('invoices.index');
 
 

@@ -105,6 +105,7 @@ class AdminController extends Controller
             'search' => $search ?? '',
             'sort_by' => $sort_by,
             'sort_direction' => $sort_direction,
+            'title' => "Admin Dashboard"
         ]);
     }
     
@@ -130,7 +131,7 @@ class AdminController extends Controller
      */
 
      function create_invoice(){
-        return view('admin-dashboard/create_invoice');
+        return view('admin-dashboard/create_invoice', ['title' => 'Create Invoice']);
      }
 
      function save_invoice(Request $request){
@@ -288,7 +289,7 @@ class AdminController extends Controller
         $invoice = Invoice::where('id', $invoice_id)->first();
         $services = Service::where('invoice_id', $invoice_id)->get();
         return view('admin-dashboard/edit_invoice',
-            ['invoice' => $invoice, 'services' => $services]
+            ['invoice' => $invoice, 'services' => $services, 'title' => "Edit Invoice"]
         );
      }
 

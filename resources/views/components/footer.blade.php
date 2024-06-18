@@ -1,29 +1,29 @@
-        
+    <!-- Your main content here -->
+    </div>
 
-        <!-- Footer Section -->
-        <footer class="footer">
-            <p class="footer__text">&copy; 2024 Coffs Lawns And Property Maintenance. All rights reserved.</p>
-            <nav class="footer__navigation">
-                <ul>
-                    <li class="footer__navigation-item"><a href="#services" class="footer__navigation-link">Services</a></li>
-                    <li class="footer__navigation-item"><a href="#about" class="footer__navigation-link">About Us</a></li>
-                    <li class="footer__navigation-item"><a href="#contact" class="footer__navigation-link">Contact</a></li>
-                </ul>
-            </nav>
-        </footer>
-        <script src="https://kit.fontawesome.com/8b0d68faf4.js" crossorigin="anonymous"></script>
-        <!-- Script to toggle mobile menu -->
-        <script>
-            function toggleMobileMenu() {
-                var menu = document.getElementById("mobileMenu");
-                menu.classList.toggle("expanded");
-                menu.classList.toggle("collapsed");
-            }
+    <!-- Footer Section -->
+    <footer class="footer">
+        <p class="footer__text">&copy; 2024 Coffs Lawns And Property Maintenance. All rights reserved.</p>
+        <nav class="footer__navigation">
+            <ul>
+                <li class="footer__navigation-item"><a href="#services" class="footer__navigation-link">Services</a></li>
+                <li class="footer__navigation-item"><a href="#about" class="footer__navigation-link">About Us</a></li>
+                <li class="footer__navigation-item"><a href="#contact" class="footer__navigation-link">Contact</a></li>
+            </ul>
+        </nav>
+    </footer>
 
-            
-        </script>
+    <!-- Script to toggle mobile menu -->
+    <script>
+        function toggleMobileMenu() {
+            var menu = document.getElementById("mobileMenu");
+            menu.classList.toggle("expanded");
+            menu.classList.toggle("collapsed");
+        }
+    </script>
 
-        <script>
+    <!-- JavaScript for navigation handling -->
+    <script>
         document.addEventListener("DOMContentLoaded", function() {
             // Add click event listener to desktop navigation links
             var desktopLinks = document.querySelectorAll(".desktop-navigation .li__a");
@@ -45,7 +45,7 @@
                 var targetSection = this.getAttribute("href");
 
                 // Construct the URL for the home page
-                var homeUrl = "<?php echo route('home'); ?>";
+                var homeUrl = "{{ route('home') }}";
 
                 // If the target starts with '#', it's a section within the same page
                 if (targetSection.startsWith("#")) {
@@ -67,17 +67,9 @@
                 }
             }
         });
+    </script>
 
-
-
-
-
-
-        </script>
-        <script src="<?php echo asset("js/mobile_menu.js"); ?>"></script>
-           
-            </div>
-
-<script src="<?php echo asset("js/main.js"); ?>"></script>
+    <!-- Additional scripts -->
+    <script src="{{ asset('js/mobile_menu.js') }}"></script>
 </body>
 </html>

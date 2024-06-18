@@ -1,7 +1,11 @@
 <x-layout>
+    <x-slot name="title">
+        Coffs Lawns And Property Maintenance | Home
+    </x-slot>
+
     <div class="hero-section">
         <video autoplay muted loop class="hero-video">
-            <source src="/videos/lawn01.mp4" type="video/mp4">
+            <source src="{{ asset('videos/lawn01.mp4') }}" type="video/mp4">
         </video>
         <div class="hero-section__content">
             <h1 class="hero__title">The Best Commercial & Domestic Lawn and Property Maintenance in Coffs Harbour</h1>
@@ -59,9 +63,11 @@
     </section>
 
     <section id="testimonials" class="testimonials">
+        <h2 class="testimonials__title">Testimonials</h2>
         <div class='sk-ww-google-reviews' data-embed-id='25420241'></div>
         <script src='https://widgets.sociablekit.com/google-reviews/widget.js' async defer></script>
     </section>
+
 
     <section id="contact" class="contact">
         <div class="contact__flex-div">
@@ -70,7 +76,6 @@
         </div>
         
         <form action="{{ route('contact.submit') }}" method="post" class="contact__form">
-            <!-- Blade directives won't work here directly in HTML, ensure it's processed by your framework -->
             @csrf
             <label for="name" class="contact__label">Name:</label>
             <input type="text" id="name" name="name" class="contact__input" placeholder="Please enter your name" required>
@@ -84,7 +89,7 @@
         </form>
 
         <!-- Tawk.to Script -->
-        <script type="text/javascript">
+        <script>
             var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
             (function(){
             var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
