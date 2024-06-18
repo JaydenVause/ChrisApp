@@ -6,13 +6,26 @@
     <title>Coffs Lawns And Property Maintenance | @yield('title', 'Default Title')</title>
     
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-    <meta name="description" content="Professional lawn and property maintenance services in Coffs Harbour, NSW. Contact us for expert lawn mowing, hedge trimming, and garden maintenance.">
-    <meta name="keywords" content="Coffs Harbour lawn maintenance, property maintenance Coffs Harbour, garden care, hedge trimming">
-    <meta name="geo.placename" content="Coffs Harbour, NSW, Australia">
-    <meta property="og:title" content="Coffs Harbour Lawn & Property Maintenance">
-    <meta property="og:description" content="Professional lawn and property maintenance services in Coffs Harbour, NSW.">
-    <meta property="og:url" content="https://coffslawnsandpropertymaintenance.com/">
-    <meta property="og:image" content="https://coffslawnsandpropertymaintenance.com/images/your-image.jpg">
+        <!-- Facebook Open Graph -->
+    <meta property="og:locale" content="en_US"/>
+    <meta property="og:site_name" content="Coffs Lawns and Property Maintenance"/>
+    <meta property="og:title" content="Coffs Lawns and Property Maintenance"/>
+    <meta property="og:url" content="https://coffslawnsandpropertymaintenance.com/"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:description" content="Professional lawn mowing and property maintenance services in Coffs Harbour."/>
+
+    <!-- Google+ / Schema.org -->
+    <meta itemprop="name" content="Coffs Lawns and Property Maintenance"/>
+    <meta itemprop="headline" content="Coffs Lawns and Property Maintenance"/>
+    <meta itemprop="description" content="Professional lawn mowing and property maintenance services in Coffs Harbour."/>
+    <meta itemprop="author" content="Coffs Lawns and Property Maintenance"/>
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:title" content="Coffs Lawns and Property Maintenance"/>
+    <meta name="twitter:url" content="https://coffslawnsandpropertymaintenance.com/"/>
+    <meta name="twitter:description" content="Professional lawn mowing and property maintenance services in Coffs Harbour."/>
+    <meta name="twitter:card" content="summary_large_image"/>
+
     <?php $canonical_url = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>
     <link rel="canonical" href="<?php echo $canonical_url; ?>">
     <?php
