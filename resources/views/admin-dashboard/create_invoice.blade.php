@@ -1,9 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
+
     <style>
         .admin-dashboard {
             margin: 0 auto;
@@ -87,9 +82,16 @@
             }
         }
     </style>
-</head>
-<body>
-    <x-layout>
+
+
+
+
+@extends('components.layout')
+
+@section('title', $title)
+
+@section('content')
+
         <div class="admin-dashboard">
             <x-dashboard-nav />
             
@@ -132,7 +134,8 @@
                 <button type="submit">Create Invoice</button>
             </form>
         </div>
-    </x-layout>
+
+        @endsection
 
     <script>
         let serviceCount = 1;
@@ -194,5 +197,3 @@
             }
         });
     </script>
-</body>
-</html>

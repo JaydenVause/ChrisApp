@@ -1,9 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Invoice</title>
+
     <style>
         .admin-dashboard {
             margin: 0 auto;
@@ -87,9 +82,14 @@
             }
         }
     </style>
-</head>
-<body>
-    <x-layout>
+
+@extends('components.layout')
+
+@section('title', $title)
+
+@section('content')
+
+  
         <div class="admin-dashboard">
             <x-dashboard-nav />
             
@@ -145,8 +145,8 @@
                 <button type="submit">Save Invoice</button>
             </form>
         </div>
-    </x-layout>
 
+        @endsection
     <script>
         let serviceCount = document.querySelectorAll('.service-item').length + 1;
 
@@ -207,5 +207,3 @@
             }
         });
     </script>
-</body>
-</html>
