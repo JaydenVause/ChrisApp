@@ -14,11 +14,7 @@
     <meta property="og:type" content="website"/>
     <meta property="og:description" content="Professional lawn mowing and property maintenance services in Coffs Harbour."/>
 
-    <!-- Google+ / Schema.org -->
-    <meta itemprop="name" content="Coffs Lawns and Property Maintenance"/>
-    <meta itemprop="headline" content="Coffs Lawns and Property Maintenance"/>
-    <meta itemprop="description" content="Professional lawn mowing and property maintenance services in Coffs Harbour."/>
-    <meta itemprop="author" content="Coffs Lawns and Property Maintenance"/>
+    
     <meta name="name" content="Coffs Lawns and Property Maintenance"/>
     <meta name="headline" content="Coffs Lawns and Property Maintenance"/>
     <meta name="description" content="Professional lawn mowing and property maintenance services in Coffs Harbour."/>
