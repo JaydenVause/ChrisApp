@@ -15,6 +15,13 @@
     <meta property="og:image" content="https://coffslawnsandpropertymaintenance.com/images/your-image.jpg">
     <?php $canonical_url = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>
     <link rel="canonical" href="<?php echo $canonical_url; ?>">
+    <?php
+        header("Referrer-Policy: strict-origin-when-cross-origin");
+        header("Strict-Transport-Security: max-age=31536000; includeSubDomains; preload");
+    ?>
+
+
+
 </head>
 <body>
     <!-- Header -->
