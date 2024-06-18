@@ -13,7 +13,8 @@
     <meta property="og:description" content="Professional lawn and property maintenance services in Coffs Harbour, NSW.">
     <meta property="og:url" content="https://coffslawnsandpropertymaintenance.com/">
     <meta property="og:image" content="https://coffslawnsandpropertymaintenance.com/images/your-image.jpg">
-    <link rel="canonical" href="https://coffslawnsandpropertymaintenance.com/">
+    <?php $canonical_url = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>
+    <link rel="canonical" href="<?php echo $canonical_url; ?>">
 </head>
 <body>
     <!-- Header -->
