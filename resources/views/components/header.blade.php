@@ -16,14 +16,9 @@
     <?php $canonical_url = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>
     <link rel="canonical" href="<?php echo $canonical_url; ?>">
     <?php
-        // Set Secure Referrer-Policy header
         header("Referrer-Policy: strict-origin-when-cross-origin");
-
-        // Set Content-Security-Policy header
-        header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self';");
-
-        // Set Strict-Transport-Security (HSTS) header
         header("Strict-Transport-Security: max-age=31536000; includeSubDomains; preload");
+        header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self';");
     ?>
 
 
