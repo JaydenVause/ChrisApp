@@ -145,9 +145,7 @@
                 <button type="submit">Save Invoice</button>
             </form>
         </div>
-
-        @endsection
-    <script>
+        <script>
         let serviceCount = document.querySelectorAll('.service-item').length + 1;
 
         function addService() {
@@ -207,3 +205,5 @@
             }
         });
     </script>
+
+        @endsection

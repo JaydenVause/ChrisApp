@@ -134,10 +134,7 @@
                 <button type="submit">Create Invoice</button>
             </form>
         </div>
-
-        @endsection
-
-    <script>
+        <script>
         let serviceCount = 1;
 
         function addService() {
@@ -197,3 +194,6 @@
             }
         });
     </script>
+        @endsection
+
+   
