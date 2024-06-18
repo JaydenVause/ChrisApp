@@ -27,11 +27,7 @@
 
     <?php $canonical_url = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>
     <link rel="canonical" href="<?php echo $canonical_url; ?>">
-    <?php
-        header("Referrer-Policy: strict-origin-when-cross-origin");
-        header("Strict-Transport-Security: max-age=31536000; includeSubDomains; preload");
-        header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self';");
-    ?>
+   
 
 
 

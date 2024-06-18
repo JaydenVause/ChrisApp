@@ -65,7 +65,7 @@
     </section>
 
     <section id="testimonials" class="testimonials">
-        <h2 class="testimonials__title">Testimonials</h2>
+        <h2 class="testimonials__title" style="color: black; text-align: center; font-size:1.8rem; padding-top: 10px;">Testimonials</h2>
         <div class='sk-ww-google-reviews' data-embed-id='25420241'></div>
         <script src='https://widgets.sociablekit.com/google-reviews/widget.js' async defer></script>
     </section>
