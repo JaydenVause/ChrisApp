@@ -1,24 +1,9 @@
 <?php
 
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-
-
-
-
-
-
-// "customer_name" => "required",
-// "customer_address" => "required",
-// "customer_email_address" => "required",
-// "customer_contact_number" => "required", 
-// "invoice_date" => "required",
-// "payment_terms" => "required",
-// "due_date" => "required",
-// "services" => "required",
-
+use Illuminate\Support\Str;
 
 return new class extends Migration
 {
@@ -28,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('invoices', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string("customer_name");
             $table->string("customer_email_address")->nullable();
             $table->string("customer_contact_number")->nullable();
