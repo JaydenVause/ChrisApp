@@ -9,6 +9,18 @@ class Invoice extends Model
     protected $keyType = 'string';
     public $incrementing = false;
 
+    protected $fillable = [
+        'customer_name',
+        'customer_email_address',
+        'customer_contact_number',
+        'customer_address',
+        'invoice_date',
+
+        'due_date',
+        'tax',
+        'paid',
+    ];
+
     // Optionally, you can add a boot method to generate the UUID
     protected static function boot()
     {
