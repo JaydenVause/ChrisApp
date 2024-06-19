@@ -102,11 +102,16 @@
                 <label for="customer_name">Customer Name:</label>
                 <input type="text" name="customer_name" id="customer_name" placeholder="Client's Name" required />
 
-                <label for="customer_email_address">Customer Email:</label>
-                <input type="email" name="customer_email_address" id="customer_email_address" placeholder="Client's Email" required />
+                <div>
+                    <label for="customer_email_address">Customer Email:</label>
+                    <input type="email" name="customer_email_address" id="customer_email_address" placeholder="Client's Email" />
 
-                <label for="customer_contact_number">Customer Contact Number:</label>
-                <input type="tel" name="customer_contact_number" id="customer_contact_number" placeholder="Client's Contact Number" required />
+                    <p style="text-align: center;">OR</p>
+
+                    <label for="customer_contact_number">Customer Contact Number:</label>
+                    <input type="tel" name="customer_contact_number" id="customer_contact_number" placeholder="Client's Contact Number" />
+                </div>
+
 
                 <label for="customer_address">Address:</label>
                 <input type="text" name="customer_address" id="customer_address" placeholder="Customer's Address" />
@@ -131,7 +136,7 @@
                 <label for="notes">Notes:</label>
                 <textarea name="notes" id="notes" placeholder="Additional notes..." rows="4"></textarea>
 
-                <button type="submit">Create Invoice</button>
+                <button type="submit" onclick="return validateForm()">Submit</button>
             </form>
         </div>
         <script>
@@ -193,7 +198,24 @@
                 result_pane.innerText = "No contacts selected or an error occurred.";
             }
         });
+
+        function validateForm() {
+            var email = document.getElementById('customer_email_address').value;
+            var phone = document.getElementById('customer_contact_number').value;
+
+            if (email === "" && phone === "") {
+                alert("Please enter at least an email address or a contact number.");
+                return false; // Prevent form submission
+            }
+            return true; // Allow form submission
+        }
     </script>
+
+
+
+
+
+
         @endsection
 
    

@@ -18,7 +18,7 @@ use ClickSend\Model\SmsMessageCollection;
 use GuzzleHttp\Client; 
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\Process\Process;
-
+use App\Rules\EmailOrContactRequired;
 
 class AdminController extends Controller
 {
@@ -136,26 +136,26 @@ class AdminController extends Controller
 
      function save_invoice(Request $request){
         $validated = $request->validate([
-            "customer_name" => "required",
-            "customer_address" => "required",
-            "customer_email_address" => "required",
-            "customer_contact_number" => "required", 
-            "invoice_date" => "required",
-
-            "due_date" => "required",
-            "services" => "required",
-            "notes" => "max:1000",
-            "tax" => "required",
-            // "terms" => "required",
-            "paid" => "integer",
-            "services.*" => [
-                'description' => "required",
-                'amount' => "required",
-                'rate' => 'required',
-                'quantity' => 'required',
-                'non_taxable' => 'required'
-            ]
+            'customer_name' => 'required',
+            'customer_address' => 'required',
+            'customer_email_address' => ['nullable', 'email', new EmailOrContactRequired($request)],
+            'customer_contact_number' => ['nullable', 'string', new EmailOrContactRequired($request)],
+            'invoice_date' => 'required',
+            'due_date' => 'required',
+            'services' => 'required|array',
+            'services.*.description' => 'required',
+            'services.*.amount' => 'required',
+            'services.*.rate' => 'required',
+            'services.*.quantity' => 'required',
+            'services.*.non_taxable' => 'nullable', // Make non_taxable optional
+            'notes' => 'nullable|max:1000', // Make notes optional
+            'tax' => 'required',
+            'paid' => 'integer',
         ]);
+        
+        if (!$request->customer_email_address && !$request->customer_contact_number) {
+            return back()->withErrors(['customer_email_address' => 'Please provide at least an email address or a contact number.', 'customer_contact_number' => '']);
+        }
 
         $invoice = new Invoice;
 
@@ -175,6 +175,15 @@ class AdminController extends Controller
         $services = [];
 
         $total_tax = 0;
+
+        if(!$invoice->customer_email_address){
+            $invoice->customer_email_address = "";
+        }
+
+        if(!$invoice->customer_contact_number){
+            $invoice->customer_contact_number = "";
+        }
+
         foreach($validated['services'] as $service){
             $new_service_object = new Service;
             $new_service_object->description = $service['description'];
@@ -230,14 +239,16 @@ class AdminController extends Controller
             ->format('A4')
             ->savePdf('../pdf/'.$invoice->id.'.pdf');
 
-        Mail::send('emails.invoice', ['invoice' => $invoice, 'url' => $url], function($message) use ($invoice) {
-            $message->to($invoice->customer_email_address, $invoice->customer_name)
-                    ->subject('Your Invoice');
-            $message->attach('../pdf/'.$invoice->id.'.pdf', [
-                'as' => 'invoice.pdf',
-                'mime' => 'application/pdf',
-            ]);
-        });
+        if(strlen($invoice->customer_email_address) > 0){
+            Mail::send('emails.invoice', ['invoice' => $invoice, 'url' => $url], function($message) use ($invoice) {
+                $message->to($invoice->customer_email_address, $invoice->customer_name)
+                        ->subject('Your Invoice');
+                $message->attach('../pdf/'.$invoice->id.'.pdf', [
+                    'as' => 'invoice.pdf',
+                    'mime' => 'application/pdf',
+                ]);
+            });
+        }
 
         
 
@@ -261,26 +272,30 @@ class AdminController extends Controller
         $username = env('CLICKSEND_USERNAME');
         $password = env('CLICKSEND_PASSWORD');
 
-        $config = ClickSend\Configuration::getDefaultConfiguration()
+        if(strlen($invoice->customer_contact_number) > 0){
+            $config = ClickSend\Configuration::getDefaultConfiguration()
               ->setUsername($username)
               ->setPassword($password);
 
-        $apiInstance = new ClickSend\Api\SMSApi(new Client(),$config);
-        $msg = new \ClickSend\Model\SmsMessage();
-        $msg->setBody($message); 
-        $msg->setTo($invoice->customer_contact_number);
-        $msg->setSource("sdk");
+            $apiInstance = new ClickSend\Api\SMSApi(new Client(),$config);
+            $msg = new \ClickSend\Model\SmsMessage();
+            $msg->setBody($message); 
+            $msg->setTo($invoice->customer_contact_number);
+            $msg->setSource("sdk");
 
-        // \ClickSend\Model\SmsMessageCollection | SmsMessageCollection model
-        $sms_messages = new \ClickSend\Model\SmsMessageCollection(); 
-        $sms_messages->setMessages([$msg]);
+            // \ClickSend\Model\SmsMessageCollection | SmsMessageCollection model
+            $sms_messages = new \ClickSend\Model\SmsMessageCollection(); 
+            $sms_messages->setMessages([$msg]);
 
-        try {
-            $result = $apiInstance->smsSendPost($sms_messages);
+            try {
+                $result = $apiInstance->smsSendPost($sms_messages);
+                return redirect()->route('admin-dashboard')->with('success', 'Successfully generated invoice');
+            } catch (Exception $e) {
+                
+                return redirect()->back()->with('errors', 'Exception when calling SMSApi->smsSendPost: ' . $e->getMessage());
+            }
+        }else{
             return redirect()->route('admin-dashboard')->with('success', 'Successfully generated invoice');
-        } catch (Exception $e) {
-            
-            return redirect()->back()->with('errors', 'Exception when calling SMSApi->smsSendPost: ' . $e->getMessage());
         }
      }
 
@@ -331,24 +346,26 @@ class AdminController extends Controller
         $invoice = Invoice::findOrFail($id);
     
         $validated = $request->validate([
-            "customer_name" => "required",
-            "customer_address" => "required",
-            "customer_email_address" => "required",
-            "customer_contact_number" => "required", 
-            "invoice_date" => "required",
-            "notes" => "max:1000",
-            "due_date" => "required",
-            "services" => "required",
-            "tax" => "required",
-            "paid" => "integer",
-            "services.*" => [
-                'description' => "required",
-                'amount' => "required",
-                'rate' => 'required',
-                'quantity' => 'required',
-                'non_taxable' => 'required'
-            ]
+            'customer_name' => 'required',
+            'customer_address' => 'required',
+            'customer_email_address' => ['nullable', 'email', new EmailOrContactRequired($request)],
+            'customer_contact_number' => ['nullable', 'string', new EmailOrContactRequired($request)],
+            'invoice_date' => 'required',
+            'due_date' => 'required',
+            'services' => 'required|array',
+            'services.*.description' => 'required',
+            'services.*.amount' => 'required',
+            'services.*.rate' => 'required',
+            'services.*.quantity' => 'required',
+            'services.*.non_taxable' => 'nullable', // Make non_taxable optional
+            'notes' => 'nullable|max:1000', // Make notes optional
+            'tax' => 'required',
+            'paid' => 'integer',
         ]);
+        
+        if (!$request->customer_email_address && !$request->customer_contact_number) {
+            return back()->withErrors(['customer_email_address' => 'Please provide at least an email address or a contact number.', 'customer_contact_number' => '']);
+        }
     
         // Clear existing services associated with the invoice
         Service::where('invoice_id', $id)->delete();
@@ -360,7 +377,8 @@ class AdminController extends Controller
         $invoice->save();
         $services = [];
         $invoice->notes = $validated['notes'];
-    
+        
+        
         foreach($validated['services'] as $service) {
             $new_service_object = new Service;
             $new_service_object->description = $service['description'];
@@ -408,14 +426,16 @@ class AdminController extends Controller
             ->format('A4')
             ->savePdf('../pdf/'.$invoice->id.'.pdf');
 
-        Mail::send('emails.invoice', ['invoice' => $invoice, 'url' => $url], function($message) use ($invoice) {
-            $message->to($invoice->customer_email_address, $invoice->customer_name)
-                    ->subject('Your Invoice');
-            $message->attach('../pdf/'.$invoice->id.'.pdf', [
-                'as' => 'invoice.pdf',
-                'mime' => 'application/pdf',
-            ]);
-        });
+        if(strlen($invoice->customer_email_address) > 0){
+            Mail::send('emails.invoice', ['invoice' => $invoice, 'url' => $url], function($message) use ($invoice) {
+                $message->to($invoice->customer_email_address, $invoice->customer_name)
+                        ->subject('Your Invoice');
+                $message->attach('../pdf/'.$invoice->id.'.pdf', [
+                    'as' => 'invoice.pdf',
+                    'mime' => 'application/pdf',
+                ]);
+            });
+        }
         
 
         $message = "Hi $invoice->customer_name,
@@ -438,26 +458,30 @@ class AdminController extends Controller
         $username = env('CLICKSEND_USERNAME');
         $password = env('CLICKSEND_PASSWORD');
 
-        $config = ClickSend\Configuration::getDefaultConfiguration()
+        if(strlen($invoice->customer_contact_number) > 0){
+            $config = ClickSend\Configuration::getDefaultConfiguration()
               ->setUsername($username)
               ->setPassword($password);
 
-        $apiInstance = new ClickSend\Api\SMSApi(new Client(),$config);
-        $msg = new \ClickSend\Model\SmsMessage();
-        $msg->setBody($message); 
-        $msg->setTo($invoice->customer_contact_number);
-        $msg->setSource("sdk");
+            $apiInstance = new ClickSend\Api\SMSApi(new Client(),$config);
+            $msg = new \ClickSend\Model\SmsMessage();
+            $msg->setBody($message); 
+            $msg->setTo($invoice->customer_contact_number);
+            $msg->setSource("sdk");
 
-        // \ClickSend\Model\SmsMessageCollection | SmsMessageCollection model
-        $sms_messages = new \ClickSend\Model\SmsMessageCollection(); 
-        $sms_messages->setMessages([$msg]);
-
-        try {
-            $result = $apiInstance->smsSendPost($sms_messages);
-            return redirect()->route('admin-dashboard')->with('success', 'Successfully generated invoice');
-        } catch (Exception $e) {
+            // \ClickSend\Model\SmsMessageCollection | SmsMessageCollection model
+            $sms_messages = new \ClickSend\Model\SmsMessageCollection(); 
+            $sms_messages->setMessages([$msg]);
             
-            return redirect()->back()->with('errors', 'Exception when calling SMSApi->smsSendPost: ' . $e->getMessage());
+            try {
+                $result = $apiInstance->smsSendPost($sms_messages);
+                return redirect()->route('admin-dashboard')->with('success', 'Successfully generated invoice');
+            } catch (Exception $e) {
+                
+                return redirect()->back()->with('errors', 'Exception when calling SMSApi->smsSendPost: ' . $e->getMessage());
+            }
+        }else{
+            return redirect()->route('admin-dashboard')->with('success', 'Successfully generated invoice');
         }
     }
     

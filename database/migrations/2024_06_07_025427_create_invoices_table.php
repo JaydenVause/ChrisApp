@@ -30,8 +30,8 @@ return new class extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
             $table->string("customer_name");
-            $table->string("customer_email_address");
-            $table->string("customer_contact_number");
+            $table->string("customer_email_address")->nullable();
+            $table->string("customer_contact_number")->nullable();
             $table->string("customer_address");
             $table->date("invoice_date");
             $table->date("due_date");

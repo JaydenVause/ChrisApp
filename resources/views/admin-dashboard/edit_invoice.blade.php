@@ -103,11 +103,16 @@
                 <label for="customer_name">Customer Name:</label>
                 <input type="text" name="customer_name" id="customer_name" placeholder="Client's Name" value="{{ $invoice->customer_name }}" required />
 
-                <label for="customer_email_address">Customer Email:</label>
-                <input type="email" name="customer_email_address" id="customer_email_address" placeholder="Client's Email" value="{{ $invoice->customer_email_address }}" required />
+                <div>
+                    <label for="customer_email_address">Customer Email:</label>
+                    <input type="email" name="customer_email_address" id="customer_email_address" placeholder="Client's Email"  value="{{ $invoice->customer_email_address }}" />
 
-                <label for="customer_contact_number">Customer Contact Number:</label>
-                <input type="tel" name="customer_contact_number" id="customer_contact_number" placeholder="Client's Contact Number" value="{{ $invoice->customer_contact_number }}" required />
+                    <p style="text-align: center;">OR</p>
+
+                    <label for="customer_contact_number">Customer Contact Number:</label>
+                    <input type="tel" name="customer_contact_number" id="customer_contact_number" placeholder="Client's Contact Number" value="{{ $invoice->customer_contact_number }}" />
+                </div>
+
 
                 <label for="customer_address">Address:</label>
                 <input type="text" name="customer_address" id="customer_address" placeholder="Customer's Address" value="{{ $invoice->customer_address }}" />
@@ -204,6 +209,17 @@
                 result_pane.innerText = "No contacts selected or an error occurred.";
             }
         });
+
+        function validateForm() {
+            var email = document.getElementById('customer_email_address').value;
+            var phone = document.getElementById('customer_contact_number').value;
+
+            if (email === "" && phone === "") {
+                alert("Please enter at least an email address or a contact number.");
+                return false; // Prevent form submission
+            }
+            return true; // Allow form submission
+        }
     </script>
 
         @endsection
